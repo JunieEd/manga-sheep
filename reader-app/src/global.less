@@ -1,0 +1,90 @@
+@import "~antd/dist/antd.less";
+
+html,
+body,
+#app {
+  height: 100%;
+  width: 100%;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.main-container {
+  display: flex;
+  height: 100%;
+  width: 100%;
+
+  > .main-search-container {
+    margin: 10rem auto 0;
+  }
+}
+
+.home-search-option {
+  color: inherit;
+  display: flex;
+  flex-flow: row nowrap;
+  font-size: 0.8rem;
+  height: 100%;
+  width: 100%;
+
+  & > &-title {
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  & > &-status {
+    flex: 0 auto;
+    font-size: 0.7em;
+    margin-left: auto;
+  }
+}
+
+.manga-details-wrapper {
+  display: flex;
+  flex-flow: row nowrap;
+  margin-top: 1rem;
+  max-width: 350px;
+  width: 90vh;
+
+  > .manga-details-image {
+    flex: 0 0 80px;
+    max-height: 10rem;
+    max-width: 5rem;
+    object-fit: contain;
+  }
+
+  > .manga-details-info {
+    flex: 1;
+    margin-left: 1rem;
+    font-size: 0.9rem;
+
+    > p {
+      text-align: justify;
+    }
+  }
+}
+
+.manga-chapter-wrapper {
+  align-items: center;
+  background-color: #222;
+  display: flex;
+  flex-flow: column nowrap;
+  overflow: auto;
+  width: 100%;
+
+  img {
+    height: auto;
+    max-width: 90vw;
+  }
+}
+
+// hacks
+
+.ant-tooltip-inner {
+  font-size: 0.7rem;
+}

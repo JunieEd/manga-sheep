@@ -1,0 +1,33 @@
+{
+  "name": "manga-sheep-services",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "UNLICENSED",
+  "private": true,
+  "devDependencies": {
+    "@babel/core": "^7.8.4",
+    "@babel/node": "^7.8.4",
+    "@babel/plugin-transform-runtime": "^7.8.3",
+    "@babel/preset-env": "^7.8.4",
+    "babel-watch": "^7.0.0"
+  },
+  "scripts": {
+    "docker:start": "docker start manga-sheep-mongo",
+    "cron:start": "babel-node src/cron.js",
+    "dev:start": "babel-node src/index.js",
+    "watch": "babel-watch src/index.js"
+  },
+  "dependencies": {
+    "@babel/runtime": "^7.8.4",
+    "apollo-server": "^2.10.0",
+    "axios": "^0.19.2",
+    "babel-plugin-module-resolver": "^4.0.0",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "graphql": "^14.6.0",
+    "graphql-tools": "^4.0.7",
+    "mongoose": "^5.9.1",
+    "node-cron": "^2.0.3"
+  }
+}
