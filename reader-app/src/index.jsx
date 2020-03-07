@@ -1,9 +1,10 @@
 import React from "react";
 import { ApolloProvider } from "react-apollo";
 import { render } from "react-dom";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 import graphqlClient from "#src/api/graphql";
+import App from "#src/App";
 import Home from "#src/pages/Home";
 import Manga from "#src/pages/Manga";
 import MangaChapter from "#src/pages/MangaChapter";
@@ -14,29 +15,29 @@ import "./global.less";
 //   navigator.serviceWorker.register("service-worker.js");
 // }
 
-const App = () => {
-  return (
-    <div className="main-container">
-      <Switch>
-        <Route
-          component={MangaChapter}
-          path="/:mangaId([a-z0-9]{24})-:mangaName([a-z0-9-]+)/:chapterId([a-z0-9]{24})"
-        />
-        <Route
-          component={Manga}
-          path="/:mangaId([a-z0-9]{24})-:mangaName([a-z0-9-]+)"
-        />
-        <Route component={Home} path="/" />
-      </Switch>
-    </div>
-  );
-};
+// const App = () => {
+//   return (
+//     <div className="main-container">
+//       <Switch>
+//         <Route
+//           component={MangaChapter}
+//           path="/:mangaId([a-z0-9]{24})-:mangaName([a-z0-9-]+)/:chapterId([a-z0-9]{24})"
+//         />
+//         <Route
+//           component={Manga}
+//           path="/:mangaId([a-z0-9]{24})-:mangaName([a-z0-9-]+)"
+//         />
+//         <Route component={Home} path="/" />
+//       </Switch>
+//     </div>
+//   );
+// };
 
 render(
   <ApolloProvider client={graphqlClient}>
-    <BrowserRouter>
+    <Router>
       <App />
-    </BrowserRouter>
+    </Router>
   </ApolloProvider>,
   document.getElementById("app")
 );

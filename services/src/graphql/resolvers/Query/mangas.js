@@ -5,6 +5,10 @@ const mangasResolver = (context, args) => {
     return Manga.find({
       title: new RegExp(args.searchTitle, "i")
     }).sort({ hits: -1 });
+  } else if (args.topUpdates) {
+    return Manga.find({})
+      .limit(args.first)
+      .sort({ hits: -1, lastUpdated: -1 });
   } else {
     return Manga.find({}).sort({ lastUpdated: -1 });
   }

@@ -8,6 +8,7 @@ const Manga = {
     });
 
     return {
+      author: res.data.author,
       chapters: res.data.chapters,
       description: res.data.description,
       id: mangaObj.id

@@ -4,9 +4,9 @@ import * as Query from "./Query";
 
 const resolvers = {
   MangaStatus: {
-    SUSPENDED: 0,
-    ONGOING: 1,
-    COMPLETED: 2
+    Suspended: 0,
+    Ongoing: 1,
+    Completed: 2
   },
   Chapter,
   Manga,

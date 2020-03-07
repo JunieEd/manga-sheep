@@ -4,9 +4,9 @@ const typeDefs = gql`
   scalar Date
 
   enum MangaStatus {
-    SUSPENDED
-    ONGOING
-    COMPLETED
+    Suspended
+    Ongoing
+    Completed
   }
 
   type Chapter {
@@ -33,6 +33,7 @@ const typeDefs = gql`
   }
 
   type MangaInfo {
+    author: String
     chapters: [Chapter!]!
     description: String!
     id: String!
@@ -41,7 +42,7 @@ const typeDefs = gql`
   type Query {
     manga(id: ID!): Manga!
     chapter(id: ID!): Chapter!
-    mangas(searchTitle: String): [Manga!]!
+    mangas(searchTitle: String, topUpdates: Boolean, first: Int): [Manga!]!
   }
 `;
 

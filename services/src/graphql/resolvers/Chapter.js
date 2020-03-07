@@ -1,4 +1,4 @@
-import { fetchChapterImage } from "../../mangaSources/mangaEden";
+import { fetchChapterImage } from "#root/mangaSources/mangaEden";
 
 const Chapter = {
   images: async chapterObject => {

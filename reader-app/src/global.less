@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css?family=Roboto&display=swap");
 @import "~antd/dist/antd.less";
 
 html,
@@ -5,6 +6,7 @@ body,
 #app {
   height: 100%;
   width: 100%;
+  font-family: "Roboto";
 }
 
 html,
@@ -87,4 +89,35 @@ body {
 
 .ant-tooltip-inner {
   font-size: 0.7rem;
+}
+
+//
+.noSelect {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.roboto-light {
+  font-family: Roboto;
+  font-weight: 300;
+}
+
+.roboto-normal {
+  font-family: Roboto;
+  font-weight: 400;
+}
+
+.roboto-medium {
+  font-family: Roboto;
+  font-weight: 500;
+}
+
+.roboto-bold {
+  font-family: Roboto;
+  font-weight: 600;
 }
