@@ -1,0 +1,108 @@
+* {
+  margin: 0px;
+  padding: 0px;
+}
+
+.mcc {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+
+  height: 48vw;
+  min-height: 127px;
+  min-width: 74px;
+
+  width: 28vw;
+}
+
+.manga-card-front,
+.manga-card-back {
+  border: 0.04rem rgb(255, 255, 255) solid;
+  border-radius: calc(0.5rem + 1px);
+  box-shadow: 0.2rem 0.2rem 1rem #8d8d8d;
+  overflow: hidden;
+}
+
+.manga-card-front {
+  background-color: white;
+  display: block;
+  justify-content: center;
+
+  position: relative;
+}
+
+.manga-card-front-image {
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+}
+
+.manga-card-front-title-container {
+  background-color: #424242ab;
+  bottom: 0px;
+  left: 0px;
+  padding: .005rem .2rem;
+  position: absolute;
+  right: 0px;
+}
+
+.manga-card-front-title {
+  font-family: "Roboto Condensed";
+  font-weight: 300;
+  font-size: 2.3rem;
+  color: white;
+  padding: 2px;
+  margin: 0px;
+  z-index: 1;
+}
+
+.manga-card-front-status {
+  border-radius: 0.4em;
+  color: rgb(238, 238, 238);
+  font-size: 1.5em;
+  font-weight: 500;
+  padding: 0.05em 0.5em;
+  position: absolute;
+  right: 0.5em;
+  top: 0.5em;
+  opacity: .95;
+}
+
+
+/* FLIP  CARD*/
+.flip-card {
+  background-color: transparent;
+  /* perspective: 1000px; */
+}
+
+.flip-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+}
+
+.flip-card:hover .flip-card-inner {
+  transform: rotateY(180deg);
+}
+
+.flip-card-front,
+.flip-card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+.flip-card-front {
+  background-color: #bbb;
+  color: black;
+}
+
+.flip-card-back {
+  background-color: #2980b9;
+  color: white;
+  transform: rotateY(180deg);
+}

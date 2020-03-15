@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css?family=Roboto&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Roboto+Condensed&display=swap");
 @import "~antd/dist/antd.less";
 
 html,
@@ -7,6 +8,7 @@ body,
   height: 100%;
   width: 100%;
   font-family: "Roboto";
+  font-size: 16px;
 }
 
 html,
@@ -15,81 +17,81 @@ body {
   padding: 0;
 }
 
-.main-container {
-  display: flex;
-  height: 100%;
-  width: 100%;
+// .main-container {
+//   display: flex;
+//   height: 100%;
+//   width: 100%;
 
-  > .main-search-container {
-    margin: 10rem auto 0;
-  }
-}
+//   > .main-search-container {
+//     margin: 10rem auto 0;
+//   }
+// }
 
-.home-search-option {
-  color: inherit;
-  display: flex;
-  flex-flow: row nowrap;
-  font-size: 0.8rem;
-  height: 100%;
-  width: 100%;
+// .home-search-option {
+//   color: inherit;
+//   display: flex;
+//   flex-flow: row nowrap;
+//   font-size: 0.8rem;
+//   height: 100%;
+//   width: 100%;
 
-  & > &-title {
-    flex: 1;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
+//   & > &-title {
+//     flex: 1;
+//     overflow: hidden;
+//     text-overflow: ellipsis;
+//   }
 
-  & > &-status {
-    flex: 0 auto;
-    font-size: 0.7em;
-    margin-left: auto;
-  }
-}
+//   & > &-status {
+//     flex: 0 auto;
+//     font-size: 0.7em;
+//     margin-left: auto;
+//   }
+// }
 
-.manga-details-wrapper {
-  display: flex;
-  flex-flow: row nowrap;
-  margin-top: 1rem;
-  max-width: 350px;
-  width: 90vh;
+// .manga-details-wrapper {
+//   display: flex;
+//   flex-flow: row nowrap;
+//   margin-top: 1rem;
+//   max-width: 350px;
+//   width: 90vh;
 
-  > .manga-details-image {
-    flex: 0 0 80px;
-    max-height: 10rem;
-    max-width: 5rem;
-    object-fit: contain;
-  }
+//   > .manga-details-image {
+//     flex: 0 0 80px;
+//     max-height: 10rem;
+//     max-width: 5rem;
+//     object-fit: contain;
+//   }
 
-  > .manga-details-info {
-    flex: 1;
-    margin-left: 1rem;
-    font-size: 0.9rem;
+//   > .manga-details-info {
+//     flex: 1;
+//     margin-left: 1rem;
+//     font-size: 0.9rem;
 
-    > p {
-      text-align: justify;
-    }
-  }
-}
+//     > p {
+//       text-align: justify;
+//     }
+//   }
+// }
 
-.manga-chapter-wrapper {
-  align-items: center;
-  background-color: #222;
-  display: flex;
-  flex-flow: column nowrap;
-  overflow: auto;
-  width: 100%;
+// .manga-chapter-wrapper {
+//   align-items: center;
+//   background-color: #222;
+//   display: flex;
+//   flex-flow: column nowrap;
+//   overflow: auto;
+//   width: 100%;
 
-  img {
-    height: auto;
-    max-width: 90vw;
-  }
-}
+//   img {
+//     height: auto;
+//     max-width: 90vw;
+//   }
+// }
 
-// hacks
+// // hacks
 
-.ant-tooltip-inner {
-  font-size: 0.7rem;
-}
+// .ant-tooltip-inner {
+//   font-size: 0.7rem;
+// }
 
 //
 .noSelect {
@@ -120,4 +122,26 @@ body {
 .roboto-bold {
   font-family: Roboto;
   font-weight: 600;
+}
+
+.loader-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  min-height: 100px;
+  padding: 20px;
+}
+
+.spacer {
+  flex: 1;
+}
+
+a {
+  color: #1890ff;
+  text-decoration: none;
+  background-color: transparent;
+  outline: none;
+  cursor: pointer;
+  transition: color 0.3s;
+  -webkit-text-decoration-skip: objects;
 }

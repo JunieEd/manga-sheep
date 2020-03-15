@@ -42,7 +42,13 @@ const typeDefs = gql`
   type Query {
     manga(id: ID!): Manga!
     chapter(id: ID!): Chapter!
-    mangas(searchTitle: String, topUpdates: Boolean, first: Int): [Manga!]!
+    mangas(
+      searchTitle: String
+      topUpdates: Boolean
+      allUpdates: Boolean
+      topManga: Boolean
+      first: Int
+    ): [Manga!]!
   }
 `;
 
