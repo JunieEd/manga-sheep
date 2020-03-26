@@ -9,7 +9,7 @@ import Home from "#src/pages/Home";
 import Manga from "#src/pages/Manga";
 import MangaChapter from "#src/pages/MangaChapter";
 
-import "./global.less";
+import "./global.css";
 
 // if ("serviceWorker" in navigator) {
 //   navigator.serviceWorker.register("service-worker.js");

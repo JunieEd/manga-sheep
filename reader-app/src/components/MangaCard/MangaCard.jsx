@@ -1,10 +1,10 @@
-import React from "react";
+import React, { useCallback, useState } from "react";
 import { Link } from "react-router-dom";
 import _ from "lodash";
 import "./MangaCard.css";
 
-// import gql from "graphql-tag";
-// import { useQuery } from "@apollo/react-hooks";
+import gql from "graphql-tag";
+import { useQuery } from "@apollo/react-hooks";
 
 // const query = gql`
 //   query($mangaId: ID!) {
@@ -27,6 +27,8 @@ const STATUS_COLOR = {
   Suspended: "gray"
 };
 
+const info = ({ status, author, lastChapter }) => <div></div>;
+
 const MangaCard = ({ manga }) => {
   // console.log("mangaid1-" + manga.id);
 
@@ -40,13 +42,21 @@ const MangaCard = ({ manga }) => {
   // console.log("mangaid- " + data.manga.id);
 
   //const latestChapter = data.manga.info.chapters.sort()[0];
-  console.log(STATUS_COLOR[manga.status]);
+
+  const [mangaInfo, setMangaInfo] = useState(null);
+
+  // const { loading, error, data } = useQuery(query, {
+  //   variables: { mangaId: manga.id }
+  // });
+
+  //console.log(error);
+
   return (
     <div className="mcc flip-card">
       <div className="flip-card-inner">
         <div className="manga-card-front flip-card-front">
           <img
-            className="manga-card-front-image"
+            className="manga-card-front--image"
             referrerPolicy="no-referrer"
             src={manga.image}
           />
@@ -65,19 +75,38 @@ const MangaCard = ({ manga }) => {
           </div>
         </div>
         <div className="manga-card-back flip-card-back">
-          {" "}
-          {/* <div className="manga-card-author">
-        <span>{_.startCase(_.lowerCase(data.manga.info.author))}</span>
-      </div> */}
-          {/* <div className="manga-infos-container">
-        <span>{manga.status}</span>
-      </div> */}
-          {/* <div className="manga-card-latest-chapter">
-        <span style={{ fontStyle: "Light" }}>Latest: </span>
-        <Link to="/">
-          <span>{latestChapter.title}</span>
-        </Link>
-      </div> */}
+          <Link to="/mangadetails">
+            <img
+              className="manga-card-back--image"
+              referrerPolicy="no-referrer"
+              src={manga.image}
+            />
+            <div className="manga-card-back--overlay">
+              <span className="manga-card-back--title">{manga.title}</span>
+              {/* <div className="manga-card-author">
+                <span>
+                  {_.startCase(
+                    _.lowerCase(
+                      !loading && data ? data.manga.info.author : "loading"
+                    )
+                  )}
+                </span>
+              </div> */}
+              {/* <div className="manga-infos-container">
+                <span>{manga.status}</span>
+                <div className="manga-card-latest-chapter">
+                  <span style={{ fontStyle: "Light" }}>Latest: </span>
+                  <Link to="/">
+                    <span>
+                      {!loading && data
+                        ? data.manga.info.chapters.sort()[0].title
+                        : "loading"}
+                    </span>
+                  </Link>
+                </div>
+              </div> */}
+            </div>
+          </Link>
         </div>
       </div>
     </div>

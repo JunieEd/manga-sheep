@@ -18,7 +18,7 @@ const Home = () => {
         <div className="main-col-title-container">
           <span className="main-col-title">POPULAR MANGA UPDATES</span>
           <div className="spacer"></div>
-          <Link to="/">{viewAll_Comp}</Link>
+          <Link to="/mangalist">{viewAll_Comp}</Link>
         </div>
         <div className="main-mangas-container">
           <PopularMangaUpdates />

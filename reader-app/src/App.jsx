@@ -1,13 +1,15 @@
 import React, { useCallback, useState, useRef, useEffect } from "react";
-//import logo from './logo.svg';
-import "./App.less";
+
+import "./App.css";
+
 import Backdrop from "#src/components/Backdrop/Backdrop";
 import SideDrawer from "#src/components/SideDrawer/SideDrawer";
 import Toolbar from "#src/components/Toolbar/Toolbar";
 
-import Home from "#src/pages/Home/Home";
-//import MangaList from "#src/pages/MangaList/MangaList";
 import Default from "#src/pages/Default/Default";
+import Home from "#src/pages/Home/Home";
+import MangaDetails from "#src/pages/MangaDetails/MangaDetails";
+import MangaList from "#src/pages/MangaList/MangaList";
 
 import { Switch, Route } from "react-router-dom";
 
@@ -48,7 +50,8 @@ const App = () => {
         <Switch>
           <Route exact path="/" component={Home} />
           <Route path="/home" component={Home} />
-          {/* <Route path="/mangalist" component={MangaList} /> */}
+          <Route path="/mangalist" component={MangaList} />
+          <Route path="/mangadetails" component={MangaDetails} />
           <Route component={Default} />
         </Switch>
       </main>

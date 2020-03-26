@@ -4,8 +4,7 @@
 }
 
 .main-toolbar-spacer {
-  height: 7.32vh; //70px;
-  min-height: 70px;
+  height: var(--global-nav-height);
 }
 
 .main-content {
@@ -13,7 +12,7 @@
   width: auto;
 }
 
-// .app {
+/* // .app {
 //   text-align: center;
 // }
 
@@ -51,4 +50,4 @@
 //   to {
 //     transform: rotate(360deg);
 //   }
-// }
+// } */
