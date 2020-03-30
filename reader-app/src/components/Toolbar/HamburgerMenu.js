@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-import MenuIcon from "#src/components/SVG/MenuIcon";
+import Icon from "#src/components/Icon";
 
 const toggleButtonColor = "tomato";
 
@@ -29,7 +29,7 @@ const HamburgerMenu = styled.button`
 const hamburgerMenu = props => (
   <HamburgerMenuContainer>
     <HamburgerMenu className="noSelect" onClick={props.click}>
-      <MenuIcon height="20" />
+      <Icon.MenuIcon height="20" />
     </HamburgerMenu>
   </HamburgerMenuContainer>
 );

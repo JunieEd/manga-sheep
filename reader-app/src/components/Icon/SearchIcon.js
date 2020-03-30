@@ -1,7 +1,6 @@
 import React from "react";
 
 const SearchIcon = ({
-  width = "100%",
   className = "",
   height = "100%",
   viewBox = "0 0 24 24.13"
@@ -9,7 +8,6 @@ const SearchIcon = ({
   <svg
     xmlns="http://www.w3.org/2000/svg"
     className={className}
-    width={width}
     height={height}
     viewBox={viewBox}
     style={{ display: "block" }}

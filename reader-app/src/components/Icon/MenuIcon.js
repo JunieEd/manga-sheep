@@ -18,9 +18,18 @@ const MenuIcon = ({
     {/* <title>Menu</title> */}
     <g id="Layer_2" data-name="Layer 2">
       <g id="Layer_1-2" data-name="Layer 1">
-        <rect className="cls-1" y="9.98" width="27.8" height="3" rx="1.5" />
-        <rect className="cls-1" width="27.8" height="3" rx="1.5" />
-        <rect className="cls-1" y="19.96" width="27.8" height="3" rx="1.5" />
+        <path
+          className="cls-1"
+          d="M26.3,10H1.5a1.5,1.5,0,0,0,0,3H26.3a1.5,1.5,0,0,0,0-3Z"
+        />
+        <path
+          className="cls-1"
+          d="M1.5,3H26.3a1.5,1.5,0,0,0,0-3H1.5a1.5,1.5,0,0,0,0,3Z"
+        />
+        <path
+          className="cls-1"
+          d="M26.3,20H1.5a1.5,1.5,0,0,0,0,3H26.3a1.5,1.5,0,1,0,0-3Z"
+        />
       </g>
     </g>
   </svg>

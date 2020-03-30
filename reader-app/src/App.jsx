@@ -4,7 +4,7 @@ import "./App.css";
 
 import Backdrop from "#src/components/Backdrop/Backdrop";
 import SideDrawer from "#src/components/SideDrawer/SideDrawer";
-import Toolbar from "#src/components/Toolbar/Toolbar";
+import Toolbar from "#src/components/Toolbar";
 
 import Default from "#src/pages/Default/Default";
 import Home from "#src/pages/Home/Home";
@@ -40,10 +40,7 @@ const App = () => {
   return (
     <div className="app-container">
       <Toolbar drawerClickHandler={drawerToggleClickHandler} />
-      <SideDrawer
-        show={sideDrawerOpen}
-        sideDrawerNavItemClickHandler={sideDrawerNavItemClickHandler}
-      />
+      <SideDrawer show={sideDrawerOpen} sideDrawerNavItemClickHandler={sideDrawerNavItemClickHandler} />
       {backdrop}
       <div className="main-toolbar-spacer"></div>
       <main className="main-content">

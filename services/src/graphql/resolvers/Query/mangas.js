@@ -4,7 +4,9 @@ const mangasResolver = (context, args) => {
   if (args.searchTitle) {
     return Manga.find({
       title: new RegExp(args.searchTitle, "i")
-    }).sort({ hits: -1 });
+    })
+      .limit(args.first)
+      .sort({ hits: -1 });
   }
   //popular manga updates
   else if (args.topUpdates) {
