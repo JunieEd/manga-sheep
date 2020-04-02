@@ -18,14 +18,10 @@ const SideDrawerMenuListItem = styled.li`
 `;
 
 const SideDrawer = ({ show, sideDrawerNavItemClickHandler }) => {
-  console.log("side drawer");
   let drawerClasses = ["side-drawer"];
   if (show) {
     drawerClasses = ["side-drawer", "open"];
   }
-
-  console.log(show);
-
   const SideDrawerNav = styled.nav`
     height: 300px;
     background: #ff0000bd;

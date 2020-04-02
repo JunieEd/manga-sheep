@@ -1,7 +1,6 @@
 import React from "react";
 import { useQuery } from "@apollo/react-hooks";
 import gql from "graphql-tag";
-import { Spin } from "antd";
 
 const query = gql`
   query($chapterId: ID!) {
@@ -21,11 +20,13 @@ const MangaChapter = ({
     params: { chapterId }
   }
 }) => {
+  console.log(chapterId);
+
   const { data, loading } = useQuery(query, {
     variables: { chapterId }
   });
 
-  if (loading) return <Spin />;
+  if (loading) return <div>Loading</div>;
 
   return (
     <div className="manga-chapter-wrapper">

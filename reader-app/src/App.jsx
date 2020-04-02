@@ -8,6 +8,7 @@ import Toolbar from "#src/components/Toolbar";
 
 import Default from "#src/pages/Default/Default";
 import Home from "#src/pages/Home/Home";
+import MangaChapter from "#src/pages/MangaChapter/MangaChapter";
 import MangaDetails from "#src/pages/MangaDetails/MangaDetails";
 import MangaList from "#src/pages/MangaList/MangaList";
 
@@ -17,12 +18,10 @@ const App = () => {
   const [sideDrawerOpen, setSideDrawerOpen] = useState(false);
 
   const drawerToggleClickHandler = () => {
-    console.log("clicked: Drawer");
     setSideDrawerOpen(!sideDrawerOpen);
   };
 
   const backdropClickHandler = () => {
-    console.log("clicked: Backdrop");
     setSideDrawerOpen(false);
   };
 
@@ -45,10 +44,14 @@ const App = () => {
       <div className="main-toolbar-spacer"></div>
       <main className="main-content">
         <Switch>
+          <Route
+            component={MangaChapter}
+            path="/:mangaId([a-z0-9]{24})-:mangaName([a-z0-9-]+)/:chapterId([a-z0-9]{24})"
+          />
           <Route exact path="/" component={Home} />
           <Route path="/home" component={Home} />
+          <Route path="/:mangaId([a-z0-9]{24})-:mangaName([a-z0-9-]+)" component={MangaDetails} />
           <Route path="/mangalist" component={MangaList} />
-          <Route path="/mangadetails" component={MangaDetails} />
           <Route component={Default} />
         </Switch>
       </main>
