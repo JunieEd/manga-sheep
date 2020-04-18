@@ -1,15 +1,5 @@
-import LogoIcon from "./LogoIcon";
-import LogoWordIcon from "./LogoWordIcon";
-import MenuIcon from "./MenuIcon";
-import SearchIcon from "./SearchIcon";
-import XIcon from "./XIcon";
-
-const Icon = {
-  LogoIcon,
-  LogoWordIcon,
-  MenuIcon,
-  SearchIcon,
-  XIcon
-};
-
-export default Icon;
+export { LogoIcon } from "./LogoIcon";
+export { LogoWordIcon } from "./LogoWordIcon";
+export { MenuIcon } from "./MenuIcon";
+export { SearchIcon } from "./SearchIcon";
+export { XIcon } from "./XIcon";

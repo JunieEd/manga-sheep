@@ -1,3 +1,3 @@
-import Search from "./Search";
+import SearchInitial from "./SearchInitial";
 
-export default Search;
+export default SearchInitial;

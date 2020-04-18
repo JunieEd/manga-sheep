@@ -1,10 +1,6 @@
 import React from "react";
 
-const LogoWordIcon = ({
-  className = "",
-  height = "100%",
-  viewBox = "0 0 99.43 24"
-}) => (
+export const LogoWordIcon = ({ className = "", height = "100%", viewBox = "0 0 99.43 24" }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     className={className}
@@ -58,5 +54,3 @@ const LogoWordIcon = ({
     </g>
   </svg>
 );
-
-export default LogoWordIcon;

@@ -3,6 +3,9 @@ import { ApolloProvider } from "react-apollo";
 import { render } from "react-dom";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
+import { Provider } from "react-redux";
+import store from "#src/redux/store";
+
 import graphqlClient from "#src/api/graphql";
 import App from "#src/App";
 import Home from "#src/pages/Home";
@@ -34,10 +37,12 @@ import "./global.css";
 // };
 
 render(
-  <ApolloProvider client={graphqlClient}>
-    <Router>
-      <App />
-    </Router>
-  </ApolloProvider>,
+  <Provider store={store}>
+    <ApolloProvider client={graphqlClient}>
+      <Router>
+        <App />
+      </Router>
+    </ApolloProvider>
+  </Provider>,
   document.getElementById("app")
 );

@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Icon from "#src/components/Icon";
+import { LogoIcon, LogoWordIcon } from "#src/components/Icon";
 
 import styled from "styled-components";
 
@@ -11,13 +11,13 @@ const MainLogoContainer = styled.div`
   align-items: center;
 `;
 
-const LogoContainer = styled(Icon.LogoIcon)`
+const LogoContainer = styled(LogoIcon)`
   @media only screen and (min-width: 768px) {
     display: none !important;
   }
 `;
 
-const LogoWordContainer = styled(Icon.LogoWordIcon)`
+const LogoWordContainer = styled(LogoWordIcon)`
   @media only screen and (max-width: 767px) {
     display: none !important;
   }

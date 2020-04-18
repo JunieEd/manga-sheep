@@ -1,115 +1,108 @@
-import React, { useCallback, useState } from "react";
+import React, { useRef, useCallback, useLayoutEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import _ from "lodash";
 import "./MangaCard.css";
 
-import gql from "graphql-tag";
-import { useQuery } from "@apollo/react-hooks";
-
-// const query = gql`
-//   query($mangaId: ID!) {
-//     manga(id: $mangaId) {
-//       id
-//       info {
-//         chapters {
-//           id
-//           title
-//         }
-//         description
-//       }
-//     }
-//   }
-// `;
+import styled from "styled-components";
+import Chip from "#src/components/chip";
 
 const STATUS_COLOR = {
-  Completed: "#5B8C5A",
-  Ongoing: "#4A47A3",
-  Suspended: "gray"
+  Completed: "green",
+  Ongoing: "blue",
+  Suspended: "red"
 };
 
-const info = ({ status, author, lastChapter }) => <div></div>;
+const Wrapper = styled.div`
+  border-radius: calc(7px + 0.1vw);
+  min-width: 80px;
+  padding: calc(3px + 0.1vw);
+  position: relative;
+ 
+  @media only screen and (min-width: 320px){
+    min-width: 100px;
+  }
 
-const MangaCard = ({ manga }) => {
-  // console.log("mangaid1-" + manga.id);
+  :hover{
+    background-color: red;
+  }
 
-  // const { loading, error, data } = useQuery(query, {
-  //   variables: { mangaId: manga.id }
-  // });
+  > a {
+    display: block;
+    line-height: 0;
+  
+`;
 
-  // console.log("err- " + error);
-  // if (loading && !data) return <div>loading</div>;
+const Image = styled.img`
+  border-radius: calc(5px + 0.1vw) calc(5px + 0.1vw) 0 0;
+  object-fit: fill;
+  width: 100%;
+  height: calc(150px + 1vw);
 
-  // console.log("mangaid- " + data.manga.id);
+  @media only screen and (min-width: 500) {
+    height: calc(170px + 1vw);
+  }
 
-  //const latestChapter = data.manga.info.chapters.sort()[0];
+  @media only screen and (min-width: 768px) {
+    height: calc(200px + 1vw);
+  }
+`;
 
-  const [mangaInfo, setMangaInfo] = useState(null);
+const ChipC = styled(Chip)`
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  font-size: 0.4rem;
+`;
 
-  // const { loading, error, data } = useQuery(query, {
-  //   variables: { mangaId: manga.id }
-  // });
+const TitleWrapper = styled.div`
+  border-radius: 0 0 calc(5px + 0.1vw) calc(5px + 0.1vw);
+  background-color: #ff0000d1;
+  bottom: 0px;
+  left: 0px;
+  padding: 0.005rem 0.2rem;
+  right: 0px;
+  max-height: 50px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 
-  //console.log(error);
+  > span {
+    font-family: "Roboto Condensed";
+    font-weight: 300;
+    font-size: 1rem;
+    color: white;
+    padding: 2px;
+    margin: 0px;
+    z-index: 1;
+
+    max-height: 50px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+`;
+
+const MangaCard = ({ className, manga }) => {
+  const imageSrc =
+    manga.image.match(/\/([^\/]+)[\/]?$/)[1] != "null"
+      ? manga.image
+      : "https://s3.zerochan.net/Touwa.Erio.240.620278.jpg";
+
+  const sanitiseTitle = title =>
+    title
+      .toLowerCase()
+      .replace(/[^a-z0-9]/g, "-")
+      .replace(/-{2,}/g, "-");
 
   return (
-    <div className="mcc flip-card">
-      <div className="flip-card-inner">
-        <div className="manga-card-front flip-card-front">
-          <img
-            className="manga-card-front--image"
-            referrerPolicy="no-referrer"
-            src={manga.image}
-          />
-
-          <span
-            className="manga-card-front-status"
-            style={{ backgroundColor: `${STATUS_COLOR[manga.status]}` }}
-          >
-            {manga.status}
-          </span>
-
-          <div className="manga-card-front-title-container">
-            <span className="manga-card-front-title">
-              {manga.title ? manga.title : "-"}
-            </span>
-          </div>
-        </div>
-        <div className="manga-card-back flip-card-back">
-          <Link to="/mangadetails">
-            <img
-              className="manga-card-back--image"
-              referrerPolicy="no-referrer"
-              src={manga.image}
-            />
-            <div className="manga-card-back--overlay">
-              <span className="manga-card-back--title">{manga.title}</span>
-              {/* <div className="manga-card-author">
-                <span>
-                  {_.startCase(
-                    _.lowerCase(
-                      !loading && data ? data.manga.info.author : "loading"
-                    )
-                  )}
-                </span>
-              </div> */}
-              {/* <div className="manga-infos-container">
-                <span>{manga.status}</span>
-                <div className="manga-card-latest-chapter">
-                  <span style={{ fontStyle: "Light" }}>Latest: </span>
-                  <Link to="/">
-                    <span>
-                      {!loading && data
-                        ? data.manga.info.chapters.sort()[0].title
-                        : "loading"}
-                    </span>
-                  </Link>
-                </div>
-              </div> */}
-            </div>
-          </Link>
-        </div>
-      </div>
-    </div>
+    <Wrapper className={className}>
+      <Link to={`/${manga.id}-${sanitiseTitle(manga.title)}`}>
+        <Image referrerPolicy="no-referrer" src={imageSrc} />
+      </Link>
+      <ChipC color={STATUS_COLOR[manga.status]} text={manga.status} />
+      <TitleWrapper>
+        <span>{manga.title ? manga.title : "-"}</span>
+      </TitleWrapper>
+    </Wrapper>
   );
 };
 

@@ -21,20 +21,18 @@
   height: auto;
 }
 
-.main-col-title-container {
+/* .main-col-title-container {
   display: flex;
   flex-flow: row nowrap;
   align-items: center;
-  padding: 2rem 1.3rem 0.8rem 1.3rem;
 }
 
 .main-col-title {
   color: #484848;
   font-family: "Roboto Condensed";
-  font-size: 4vw;
+  font-size: 1.2rem;
   font-weight: bold;
-  padding: 1vw 1vw auto 1vw;
-}
+} */
 
 .main-mangas-container {
   display: flex;
@@ -43,9 +41,9 @@
   align-content: center;
 }
 
-.view-all {
+/* .view-all {
   font-size: 1.5em;
-}
+} */
 
 /* @media only screen and (min-width: 768) {
   .main-col-1 {

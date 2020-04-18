@@ -6,6 +6,8 @@ import Search from "#src/components/Search";
 import Logo from "./Logo";
 import styled from "styled-components";
 
+import { useSelector } from "react-redux";
+
 //Styled Components
 const ToolbarHeader = styled.header`
   position: fixed;
@@ -13,14 +15,14 @@ const ToolbarHeader = styled.header`
   left: 0;
   width: 100%;
   background-color: var(--main-toolbar-color);
-  box-shadow: 0px 0px 10px rgb(78, 78, 78);
-  height: var(--global-nav-height);
+  box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.2), 0 3px 4px 0 rgba(0, 0, 0, 0.12), 0 2px 4px 0 rgba(0, 0, 0, 0.14);
   z-index: 1;
 `;
 
 const MenuNav = styled.nav`
   display: flex;
   justify-content: space-between;
+  height: cal(var(--global-nav-height));
 
   @media only screen and (min-width: 768px) {
     padding: 0 20px;
@@ -29,12 +31,16 @@ const MenuNav = styled.nav`
 `;
 
 const HamburgerContainer = styled.div`
+  height: cal(var(--global-nav-height));
+
   @media only screen and (min-width: 768px) {
     display: none !important;
   }
 `;
 
 const LogoContainer = styled.div`
+  height: cal(var(--global-nav-height));
+
   @media only screen and (min-width: 768px) {
     display: inline-block;
     vertical-align: top;
@@ -91,18 +97,20 @@ const Spacer = styled.div`
   }
 `;
 
-const BottomNav = styled.div`
+const BottomLine = styled.div`
   width: 100%;
-  height: 7px;
-  background-color: red;
+  height: 5px;
+  background-color: var(--global-red-color);
 `;
 
-const Toolbar = ({ drawerClickHandler }) => {
+const Toolbar = () => {
+  const backdrop = useSelector(state => state.backdrop);
+
   return (
-    <ToolbarHeader>
+    <ToolbarHeader style={{ zIndex: `${backdrop.isFromSearch ? 101 : 1}` }}>
       <MenuNav>
         <HamburgerContainer>
-          <HamburgerMenu click={drawerClickHandler} />
+          <HamburgerMenu />
         </HamburgerContainer>
         <LogoContainer>
           <Logo />
@@ -120,7 +128,7 @@ const Toolbar = ({ drawerClickHandler }) => {
           <Search />
         </SearchContainer>
       </MenuNav>
-      <BottomNav />
+      <BottomLine />
     </ToolbarHeader>
   );
 };

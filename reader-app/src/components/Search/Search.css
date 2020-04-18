@@ -1,87 +1,54 @@
-/* @border-color: #cccccc;
+.onFocus {
+  box-shadow: 0 0 5px rgba(81, 203, 238, 1);
+  border: 1px solid rgba(81, 203, 238, 1);
+}
 
-.autocomplete-container {
+.search-mobile-wrapper-sliding {
   color: #222;
-  background-color: white;
-  border: 1.1px solid @border-color;
-  border-radius: 0.3rem;
-  //box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1), 0 2px 4px 1px rgba(0, 0, 0, 0.18);
+  background-color: var(--main-toolbar-color);
   display: inline-block;
-  font-family: Roboto;
-  font-size: 1rem;
-  padding: 3px 10px 3px 6px;
-  position: relative;
-  width: 100%;
-  vertical-align: middle;
-  > .autocomplete-header {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    > .autocomplete-input {
-      width: 100%;
-      border: none;
-      padding: 5px 5px;
-      box-sizing: border-box;
-      outline: none;
-    }
-    > a {
-      font-size: 0px;
-    }
-  }
-}
-.autocomplete-container ul {
-  list-style-type: none;
-  text-align: left;
-  margin: 0;
-  padding: 0;
-  border-top: 1px solid grey;
-}
-.autocomplete-container ul::before {
-  content: "";
-}
-
-.autocomplete-container li {
-  padding: 10px 5px;
-}
-.autocomplete-container li:hover {
-  text-decoration: underline;
-  background-color: rba(128, 128, 128, 0.2);
-  cursor: default;
-}
-
-for search component
-.autocomplete-suggestions-container {
+  left: 0;
   position: absolute;
+  max-width: 100%;
+  width: 100%;
+  top: 0;
+  vertical-align: middle;
+  z-index: 1;
+}
+
+.search-icon-wrapper {
+  align-items: center;
+  display: flex;
+  height: var(--global-nav-height);
+  justify-content: center;
+  width: calc(var(--global-nav-height) + 10px);
+}
+
+.search-button {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  height: var(--global-nav-height);
+  width: auto;
+  background: transparent;
   border: none;
-  z-index: 99;
-  
-  top: 100%;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+.search-button:focus {
+  outline: none;
+}
+
+.option-mobile-wrapper {
+  position: absolute;
+  border-bottom: 5px solid red;
+  font-size: 0.9rem;
+  top: var(--global-nav-height);
   left: 0;
   right: 0;
+  z-index: 99;
   margin: 0px auto 0 auto;
   background-color: white;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-} */
-
-.m-fadeOut {
-  visibility: hidden;
-  opacity: 0;
-  transition: visibility 0s linear 300ms, opacity 300ms;
-}
-
-.m-fadeIn {
-  visibility: visible;
-  opacity: 1;
-  transition: visibility 0s linear 0s, opacity 300ms;
-}
-
-.no-content {
-  max-height: 0;
-  transition: max-height 0s linear 300ms;
-}
-
-
-.width-content {
-  max-height: 100%;
-  transition: max-height 0s linear 300ms;
 }

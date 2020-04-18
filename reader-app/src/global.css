@@ -1,25 +1,26 @@
 :root {
   --main-font-title-color: #454545;
   --main-toolbar-color: white;
+  --main-body-color: white;
   --global-nav-height: 55px;
-
-  --global-ipad-width: 768px;
+  --global-link-color: #1890ff;
+  --global-red-color: red;
+  --global-hover-color: #f6f6f4;
 }
 
 html,
 body,
 #app {
-  height: 100%;
   width: 100%;
+  height: 100%;
+  margin: 0px;
+  padding: 0px;
+  overflow-x: hidden;
+
   font-family: "Roboto";
   font-size: 16px;
   font-weight: 300;
-}
 
-html,
-body {
-  margin: 0;
-  padding: 0;
   line-height: 1.5;
 }
 
@@ -27,83 +28,6 @@ body {
   margin: 0px;
   padding: 0px;
 }
-
-/* // .main-container {
-//   display: flex;
-//   height: 100%;
-//   width: 100%;
-
-//   > .main-search-container {
-//     margin: 10rem auto 0;
-//   }
-// }
-
-// .home-search-option {
-//   color: inherit;
-//   display: flex;
-//   flex-flow: row nowrap;
-//   font-size: 0.8rem;
-//   height: 100%;
-//   width: 100%;
-
-//   & > &-title {
-//     flex: 1;
-//     overflow: hidden;
-//     text-overflow: ellipsis;
-//   }
-
-//   & > &-status {
-//     flex: 0 auto;
-//     font-size: 0.7em;
-//     margin-left: auto;
-//   }
-// }
-
-// .manga-details-wrapper {
-//   display: flex;
-//   flex-flow: row nowrap;
-//   margin-top: 1rem;
-//   max-width: 350px;
-//   width: 90vh;
-
-//   > .manga-details-image {
-//     flex: 0 0 80px;
-//     max-height: 10rem;
-//     max-width: 5rem;
-//     object-fit: contain;
-//   }
-
-//   > .manga-details-info {
-//     flex: 1;
-//     margin-left: 1rem;
-//     font-size: 0.9rem;
-
-//     > p {
-//       text-align: justify;
-//     }
-//   }
-// }
-
-// .manga-chapter-wrapper {
-//   align-items: center;
-//   background-color: #222;
-//   display: flex;
-//   flex-flow: column nowrap;
-//   overflow: auto;
-//   width: 100%;
-
-//   img {
-//     height: auto;
-//     max-width: 90vw;
-//   }
-// }
-
-// // hacks
-
-// .ant-tooltip-inner {
-//   font-size: 0.7rem;
-// } */
-
 
 .noSelect {
   -webkit-touch-callout: none;
@@ -114,6 +38,27 @@ body {
   user-select: none;
   -webkit-tap-highlight-color: transparent;
 }
+
+.icon-button {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  /* height: var(--global-nav-height); */
+  width: auto;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+.icon-wrapper {
+  align-items: center;
+  display: flex;
+  height: var(--global-nav-height);
+  justify-content: center;
+  width: calc(var(--global-nav-height) + 10px);
+}
+
 
 .roboto-light {
   font-family: Roboto;
@@ -191,4 +136,21 @@ section {
 ::selection {
   color: #fff;
   background: #1890ff;
+}
+
+hr {
+  margin-left: 10px;
+  margin-right: 10px;
+  border: 0;
+  border-top: 1px solid #b0b0b0;
+}
+
+
+.dotted {
+  background: radial-gradient(rgb(255, 255, 255) 15%, transparent 16%) 0 0,
+    radial-gradient(rgb(255, 255, 255) 15%, transparent 16%) 8px 8px,
+    radial-gradient(rgba(255, 255, 255, .1) 15%, transparent 20%) 0 1px,
+    radial-gradient(rgba(255, 255, 255, .1) 15%, transparent 20%) 8px 9px;
+  background-color: #f9f9f9;
+  background-size: 16px 16px;
 }

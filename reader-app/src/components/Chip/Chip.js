@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-const TagWrapper = styled.span`
+const ChipWrapper = styled.span`
   border-radius: 4px;
   color: white;
   font-size: 0.6rem;
@@ -10,55 +10,55 @@ const TagWrapper = styled.span`
   text-transform: uppercase;
 `;
 
-const TagDefault = styled(TagWrapper)`
+const ChipDefault = styled(ChipWrapper)`
   background-color: #d5d8dc;
   border: 0.4px solid #566573;
   color: #566573;
 `;
 
-const TagBlue = styled(TagWrapper)`
+const ChipBlue = styled(ChipWrapper)`
   background-color: #d6eaf8;
   border: 0.4px solid #5dade2;
-  color: #5dade2;
+  color: #4491c3;
 `;
 
-const TagGreen = styled(TagWrapper)`
+const ChipGreen = styled(ChipWrapper)`
   background-color: #d4efdf;
   border: 0.4px solid #52be80;
-  color: #52be80;
+  color: #369c62;
 `;
 
-const TagRed = styled(TagWrapper)`
+const ChipRed = styled(ChipWrapper)`
   background-color: #f2d7d5;
   border: 0.4px solid #d98880;
-  color: #d98880;
+  color: #bf6c64;
 `;
 
-const tagStyle = color => {
-  let TagStyle = TagDefault;
+const ChipStyle = color => {
+  let ChipStyle = ChipDefault;
 
   switch (color.toLowerCase()) {
     case "blue":
-      TagStyle = TagBlue;
+      ChipStyle = ChipBlue;
       break;
     case "green":
-      TagStyle = TagGreen;
+      ChipStyle = ChipGreen;
       break;
     case "red":
-      TagStyle = TagRed;
+      ChipStyle = ChipRed;
       break;
     default:
-      TagStyle = TagDefault;
+      ChipStyle = ChipDefault;
       break;
   }
 
-  return TagStyle;
+  return ChipStyle;
 };
 
-const Tag = ({ color, text }) => {
-  let TagWrapperStyle = tagStyle(color);
+const Chip = ({ className, color, text }) => {
+  let ChipWrapperStyle = ChipStyle(color);
 
-  return <TagWrapperStyle>{text}</TagWrapperStyle>;
+  return <ChipWrapperStyle className={className}>{text}</ChipWrapperStyle>;
 };
 
-export default Tag;
+export default Chip;

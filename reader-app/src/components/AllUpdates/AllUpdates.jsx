@@ -1,6 +1,7 @@
 import React from "react";
 import gql from "graphql-tag";
 import { useQuery } from "@apollo/react-hooks";
+import styled from "styled-components";
 
 import MangaCard from "#src/components/MangaCard/MangaCard";
 import Loader from "#src/components/Others/Loader";
@@ -20,21 +21,28 @@ const query = gql`
   }
 `;
 
+const Wrapper = styled.div`
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+  align-content: center;
+`;
+
 const AllUpdates = () => {
   const { loading, error, data } = useQuery(query, {
     variables: { allUpdates: true, first: NUMBER_OF_UPDATES }
   });
 
-  return !loading && data ? (
-    data.mangas.map(manga => (
-      <div className="all_updates_manga-card-container" key={manga.id}>
-        <MangaCard key={manga.id} manga={manga} />
-      </div>
-    ))
-  ) : (
-    <div className="loader-container">
-      <Loader />
-    </div>
+  return (
+    <Wrapper>
+      {!loading && data ? (
+        data.mangas.map(manga => <MangaCard key={manga.id} manga={manga} />)
+      ) : (
+        <div className="loader-container">
+          <Loader />
+        </div>
+      )}
+    </Wrapper>
   );
 };
 

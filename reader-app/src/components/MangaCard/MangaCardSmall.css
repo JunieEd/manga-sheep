@@ -11,8 +11,8 @@
 }
 
 .manga-card-small-image-container {
-    height: 30vw;
-    width: 20vw;
+    height: auto;
+    width: 100%;
     overflow: hidden;
     /* justify-content: center; */
     /* display: block; */

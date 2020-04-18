@@ -1,9 +1,10 @@
 import React from "react";
 import styled from "styled-components";
 
-import Icon from "#src/components/Icon";
+import { MenuIcon } from "#src/components/Icon";
 
-const toggleButtonColor = "tomato";
+import { useDispatch } from "react-redux";
+import { menuDrawerShow, backdropShow } from "#src/redux/Action";
 
 const HamburgerMenuContainer = styled.div`
   align-items: center;
@@ -26,12 +27,21 @@ const HamburgerMenu = styled.button`
   }
 `;
 
-const hamburgerMenu = props => (
-  <HamburgerMenuContainer>
-    <HamburgerMenu className="noSelect" onClick={props.click}>
-      <Icon.MenuIcon height="20" />
-    </HamburgerMenu>
-  </HamburgerMenuContainer>
-);
+const hamburgerMenu = () => {
+  const dispatch = useDispatch();
+
+  const clickHandler = () => {
+    dispatch(menuDrawerShow());
+    dispatch(backdropShow());
+  };
+
+  return (
+    <HamburgerMenuContainer>
+      <HamburgerMenu className="noSelect" onClick={clickHandler}>
+        <MenuIcon height="20" />
+      </HamburgerMenu>
+    </HamburgerMenuContainer>
+  );
+};
 
 export default hamburgerMenu;
