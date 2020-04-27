@@ -1,34 +1,72 @@
 import React from "react";
 import styled from "styled-components";
 
-import MangaCard from "#src/components/MangaCard/MangaCard";
-import Loader from "#src/components/Others/Loader";
+import { MangaCard, MangaCardV2 } from "#src/components/MangaCard";
+import { PHMangaCard, PHMangaCardV2 } from "#src/components/Placeholder";
 
 const Wrapper = styled.div`
   display: flex;
   flex-flow: row wrap;
   align-content: initial;
+  content-align: center;
 `;
 
-const StyledMangaCard = styled(MangaCard)`
+const StyledMangaCardDefault = styled(MangaCard)`
   width: 33.33%;
-  min-width: 100px;
 
-  @media only screen and (min-width: 480px) {
+  @media only screen and (min-width: 576px) {
     width: 16.66%;
   }
 `;
 
-const MangaGrid = ({ loading, mangas }) => {
+const PHStyledMangaCardDefault = styled(PHMangaCard)`
+  width: 33.33%;
+
+  @media only screen and (min-width: 576px) {
+    width: 16.66%;
+  }
+`;
+
+const StyledMangaCardVertical = styled(MangaCardV2)`
+  width: 100%;
+
+  @media only screen and (min-width: 400px) {
+    width: 50%;
+  }
+  @media only screen and (min-width: 992px) {
+    width: 100%;
+  }
+`;
+
+const PHStyledMangaCardVertical = styled(PHMangaCardV2)`
+  width: 100%;
+
+  @media only screen and (min-width: 400px) {
+    width: 50%;
+  }
+  @media only screen and (min-width: 992px) {
+    width: 100%;
+  }
+`;
+
+const MangaGrid = ({ noOfMangas = 0, loading, mangas, variant = "horizontal" }) => {
+  let StyledMangaCard = StyledMangaCardDefault;
+  let PHStyledMangaCard = PHStyledMangaCardDefault;
+
+  switch (variant.toLowerCase()) {
+    case "vertical":
+      StyledMangaCard = StyledMangaCardVertical;
+      PHStyledMangaCard = PHStyledMangaCardVertical;
+      break;
+    default:
+      break;
+  }
+
   return (
     <Wrapper>
-      {!loading && mangas ? (
-        mangas.map(manga => <StyledMangaCard key={manga.id} manga={manga} />)
-      ) : (
-        <div className="loader-container">
-          <Loader />
-        </div>
-      )}
+      {!loading && mangas
+        ? mangas.map((manga, index) => <StyledMangaCard key={manga.id} manga={manga} top={index + 1} />)
+        : [...Array(noOfMangas)].map((value, index) => <PHStyledMangaCard key={index} />)}
     </Wrapper>
   );
 };

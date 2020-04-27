@@ -8,9 +8,6 @@ import store from "#src/redux/store";
 
 import graphqlClient from "#src/api/graphql";
 import App from "#src/App";
-import Home from "#src/pages/Home";
-import Manga from "#src/pages/Manga";
-import MangaChapter from "#src/pages/MangaChapter";
 
 import "./global.css";
 

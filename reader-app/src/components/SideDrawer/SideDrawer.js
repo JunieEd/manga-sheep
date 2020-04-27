@@ -65,7 +65,7 @@ const BottomLine = styled.div`
 
 const SideDrawer = props => {
   return (
-    <SideDrawerNav className="dotted" style={{ transform: `${props.show ? "translateY(0)" : ""}` }}>
+    <SideDrawerNav className="matted-white" style={{ transform: `${props.show ? "translateY(0)" : ""}` }}>
       <SideDrawerHeader>
         <div className="icon-wrapper">
           <Link to="/" onClick={props.menuDrawerHide}>

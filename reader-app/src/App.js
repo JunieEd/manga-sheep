@@ -9,14 +9,14 @@ import SideDrawer from "#src/components/SideDrawer";
 import Toolbar from "#src/components/Toolbar";
 
 import Default from "#src/pages/Default/Default";
-import Home from "#src/pages/Home/Home";
+import Home from "#src/pages/Home";
 import MangaChapter from "#src/pages/MangaChapter/MangaChapter";
-import MangaDetails from "#src/pages/MangaDetails/MangaDetails";
-import MangaList from "#src/pages/MangaList/MangaList";
+import MangaDetails from "#src/pages/MangaDetails";
+import MangaList from "#src/pages/MangaList";
 
 import { Switch, Route } from "react-router-dom";
 
-setDefaultBreakpoints([{ mobile: 0 }, { tablet: 768 }]);
+setDefaultBreakpoints([{ mobile: 0 }, { smallMobile: 576 }, { tablet: 768 }]);
 
 const Main = styled.main`
   display: flex;
@@ -32,7 +32,7 @@ const App = () => {
         <Toolbar />
         <SideDrawer />
         <Backdrop />
-        <Main className="dotted">
+        <Main className="matted">
           <Switch>
             <Route
               component={MangaChapter}

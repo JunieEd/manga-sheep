@@ -80,7 +80,7 @@ const SearchInitial = ({}) => {
 
   return (
     <>
-      <Breakpoint mobile only>
+      <Breakpoint customQuery="(max-width: 767.98px)">
         <div className="search-icon-wrapper">
           <button className="search-button noSelect" onClick={searchButtonClickHandler}>
             <SearchIcon height="20" />
@@ -95,20 +95,22 @@ const SearchInitial = ({}) => {
                   showSearchBox={showSearchBox}
                   xButtonClickHandler={xButtonClickHandler}
                   handleChange={handleChange}
+                  showOption={showOption}
+                  mangas={!loading && data && data.mangas}
                 />
               </animated.div>
             )
         )}
-
-        {!loading && showOption && (
-          <div className="option-mobile-wrapper">
-            <Option mangas={data && data.mangas ? data.mangas : null} OptionClickHandler={OptionClickHandler} />
-          </div>
-        )}
       </Breakpoint>
 
-      <Breakpoint tablet up>
-        <SearchBox OptionClickHandler={OptionClickHandler} handleChange={handleChange} />
+      <Breakpoint tablet up style={{ display: "flex", alignItems: "center", paddingRight: "20px" }}>
+        <SearchBox
+          OptionClickHandler={OptionClickHandler}
+          handleChange={handleChange}
+          forDesktop={true}
+          showOption={showOption}
+          mangas={!loading && data && data.mangas}
+        />
       </Breakpoint>
     </>
   );

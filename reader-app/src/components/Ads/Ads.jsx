@@ -1,5 +1,16 @@
 import React from "react";
+import styled from "styled-components";
 //import AdSense from "react-adsense";
+
+const AdsWrapper = styled.div`
+  height: 150px;
+  width: 100%;
+  background-color: rgb(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+`;
 
 const Ads = () => (
   //   <AdSense.Google
@@ -11,7 +22,7 @@ const Ads = () => (
   //     layoutKey="-gw-1+2a-9x+5c"
   //   />;
 
-  <div className="ads-container">Ads here</div>
+  <AdsWrapper>Ads here</AdsWrapper>
 );
 
 export default Ads;

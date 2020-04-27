@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { LogoIcon, LogoWordIcon } from "#src/components/Icon";
+import { Breakpoint } from "react-socks";
 
 import styled from "styled-components";
 
@@ -9,25 +10,18 @@ const MainLogoContainer = styled.div`
   display: flex;
   flex-flow: row nowrap;
   align-items: center;
-`;
-
-const LogoContainer = styled(LogoIcon)`
-  @media only screen and (min-width: 768px) {
-    display: none !important;
-  }
-`;
-
-const LogoWordContainer = styled(LogoWordIcon)`
-  @media only screen and (max-width: 767px) {
-    display: none !important;
-  }
+  padding: 0 20px;
 `;
 
 const Logo = () => (
   <MainLogoContainer>
     <Link to="/">
-      <LogoContainer height="30" />
-      <LogoWordContainer height="30" />
+      <Breakpoint mobile only>
+        <LogoIcon height="30" />
+      </Breakpoint>
+      <Breakpoint smallMobile up>
+        <LogoWordIcon height="30" />
+      </Breakpoint>
     </Link>
   </MainLogoContainer>
 );

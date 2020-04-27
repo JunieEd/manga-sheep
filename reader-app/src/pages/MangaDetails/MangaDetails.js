@@ -1,18 +1,21 @@
 import React from "react";
+import styled from "styled-components";
 
 import Ads from "#src/components/Ads/Ads";
-import AllMangas from "#src/components/AllMangas";
 import TopManga from "#src/components/TopManga";
 import { Title } from "#src/components/Column";
+import MangaInfo from "./MangaInfo";
 
-const MangaList = () => {
+const MangaDetails = ({
+  match: {
+    params: { mangaId, mangaName }
+  }
+}) => {
   return (
     <div className="container">
       <div className="row">
         <div className="col col-1">
-          <Title text="ALL MANGAS" route="" />
-          <AllMangas />
-          <Ads />
+          <MangaInfo mangaId={mangaId} mangaName={mangaName} />
         </div>
         <div className="col col-2">
           <Ads />
@@ -25,4 +28,4 @@ const MangaList = () => {
   );
 };
 
-export default MangaList;
+export default MangaDetails;

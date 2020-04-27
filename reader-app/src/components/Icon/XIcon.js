@@ -11,7 +11,7 @@ export const XIcon = ({ className = "", height = "100%", viewBox = "0 0 23.19 23
     <defs>
       <style>{`.cls-1{fill:#ed1c24;}`}</style>
     </defs>
-    <title>Asset 21</title>
+    <title></title>
     <g id="Layer_1-2" data-name="Layer 1">
       <path
         className="cls-1"

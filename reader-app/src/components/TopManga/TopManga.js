@@ -1,13 +1,14 @@
 import React from "react";
 import gql from "graphql-tag";
 import { useQuery } from "@apollo/react-hooks";
+
 import MangaGrid from "#src/components/MangaGrid";
 
-const NUMBER_OF_TOP_UPDATES = 6;
+const NUMBER_OF_TOP_MANGA = 10;
 
 const query = gql`
-  query($topUpdates: Boolean!, $first: Int) {
-    mangas(topUpdates: $topUpdates, first: $first) {
+  query($topManga: Boolean!, $first: Int) {
+    mangas(topManga: $topManga, first: $first) {
       id
       image
       title
@@ -18,10 +19,17 @@ const query = gql`
 
 const PopularMangaUpdates = () => {
   const { loading, error, data } = useQuery(query, {
-    variables: { topUpdates: true, first: NUMBER_OF_TOP_UPDATES }
+    variables: { topManga: true, first: NUMBER_OF_TOP_MANGA }
   });
 
-  return <MangaGrid noOfMangas={NUMBER_OF_TOP_UPDATES} loading={loading} mangas={!loading && data && data.mangas} />;
+  return (
+    <MangaGrid
+      noOfMangas={NUMBER_OF_TOP_MANGA}
+      loading={loading}
+      mangas={!loading && data && data.mangas}
+      variant="vertical"
+    />
+  );
 };
 
 export default PopularMangaUpdates;

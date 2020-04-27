@@ -1,17 +1,21 @@
 import React from "react";
 
 import Ads from "#src/components/Ads/Ads";
-import AllMangas from "#src/components/AllMangas";
+import AllUpdates from "#src/components/AllUpdates/AllUpdates";
+import PopularMangaUpdates from "#src/components/PopularMangaUpdates";
 import TopManga from "#src/components/TopManga";
 import { Title } from "#src/components/Column";
 
-const MangaList = () => {
+const Home = () => {
   return (
     <div className="container">
       <div className="row">
         <div className="col col-1">
-          <Title text="ALL MANGAS" route="" />
-          <AllMangas />
+          <Title text="POPULAR MANGA UPDATES" route="/mangalist" />
+          <PopularMangaUpdates />
+          <Ads />
+          <Title text="ALL UPDATES" route="/mangalist" />
+          <AllUpdates />
           <Ads />
         </div>
         <div className="col col-2">
@@ -25,4 +29,4 @@ const MangaList = () => {
   );
 };
 
-export default MangaList;
+export default Home;

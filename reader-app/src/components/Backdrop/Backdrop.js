@@ -16,8 +16,7 @@ const BackdropDiv = styled.div`
 
 const Backdrop = props => {
   if (!props.show) return null;
-
-  return <BackdropDiv onClick={!props.isFromSearch && props.backdropHide} />;
+  return <BackdropDiv onClick={props.backdropHide.bind(this, !props.isFromSearch)} />;
 };
 
 const mapStateToProps = state => {
@@ -29,9 +28,11 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    backdropHide: () => {
-      dispatch(backdropHide());
-      dispatch(menuDrawerHide());
+    backdropHide: w => {
+      if (w) {
+        dispatch(backdropHide());
+        dispatch(menuDrawerHide());
+      }
     }
   };
 };

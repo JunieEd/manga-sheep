@@ -2,6 +2,8 @@ import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import Chip from "#src/components/Chip";
+import { useDispatch } from "react-redux";
+import { backdropShow, backdropHide } from "#src/redux/Action";
 
 const STATUS_COLOR = {
   Completed: "green",
@@ -34,7 +36,7 @@ const OptionListItem = styled.li`
   }
 
   @media only screen and (min-width: 768px) {
-    --total-padding: calc(65px + 20px);
+    --total-padding: 22px;
     padding-left: var(--total-padding);
     padding-right: var(--total-padding);
   }
@@ -70,6 +72,8 @@ const sanitiseTitle = title =>
     .replace(/-{2,}/g, "-");
 
 const Option = ({ mangas, OptionClickHandler }) => {
+  const dispatch = useDispatch();
+
   if (!mangas) {
     return null;
   }
@@ -90,7 +94,9 @@ const Option = ({ mangas, OptionClickHandler }) => {
 
   return (
     <>
-      {hasResult && <div style={{ padding: "5px 10px", backgroundColor: "#fff2f2" }}>Top Results</div>}
+      {hasResult && (
+        <div style={{ padding: "5px 10px 5px 10px", marginTop: "-7px", backgroundColor: "#fff2f2" }}>Top Results</div>
+      )}
       <OptionInsideContainer>
         <OptionList>
           {hasResult && optionItems}
