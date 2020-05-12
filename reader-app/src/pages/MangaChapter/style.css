@@ -1,0 +1,4 @@
+.prev a:before {
+    left: 13px;
+    content: "\f27d";
+}

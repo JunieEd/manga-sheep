@@ -35,18 +35,17 @@ const SearchInitial = ({}) => {
   const [searchQuery, setSearchQuery] = useState("");
   const { data, loading } = useQuery(query, {
     skip: searchQuery.length < MIN_QUERY_LENGTH,
-    variables: { searchTitle: searchQuery, first: MAX_SEARCH_MANGA_COUNT }
+    variables: { searchTitle: searchQuery, first: MAX_SEARCH_MANGA_COUNT },
   });
 
   const dispatch = useDispatch();
 
-  const handleChange = evt => {
+  const handleChange = (evt) => {
     handleFilter(evt.target.value);
   };
 
-  const handleFilter = _.debounce(val => {
+  const handleFilter = _.debounce((val) => {
     setSearchQuery(val);
-    console.log(searchQuery);
   }, THROTTLE_TIME);
 
   const screenWidth = useCurrentWidth();
@@ -75,7 +74,7 @@ const SearchInitial = ({}) => {
   const transitionsSearch = useTransition(showSearchBox, null, {
     from: { opacity: 0.4, transform: `translate3d(${screenWidth - 65}px,0,0)` },
     enter: { opacity: 1, transform: "translate3d(0,0,0)" },
-    leave: { opacity: 0.4, transform: `translate3d(${screenWidth - 65}px,0,0)` }
+    leave: { opacity: 0.4, transform: `translate3d(${screenWidth - 65}px,0,0)` },
   });
 
   return (

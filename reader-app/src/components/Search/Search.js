@@ -58,7 +58,6 @@ const Search = ({ items }) => {
   let AutocompleteContainerEL = null;
 
   const focusHandler = () => {
-    console.log("asdasd");
     AutocompleteContainerEL.focus();
   };
 

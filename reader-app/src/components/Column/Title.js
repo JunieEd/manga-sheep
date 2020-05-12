@@ -14,7 +14,7 @@ const GroupTitle = styled.div`
     flex: 1;
     color: #484848;
     font-family: "Roboto Condensed";
-    font-size: calc(1em + 0.5vw);
+    font-size: calc(1.3em + 0.3vw);
     font-weight: bold;
     width: 100%;
   }
@@ -26,9 +26,9 @@ const GroupTitle = styled.div`
   }
 `;
 
-const Title = ({ text, route }) => (
-  <GroupTitle>
-    <span>{text}</span>
+const Title = ({ className, text, route }) => (
+  <GroupTitle className={className}>
+    <span className={className}>{text}</span>
     {route && route != "" && <Link to={route}>View All</Link>}
   </GroupTitle>
 );

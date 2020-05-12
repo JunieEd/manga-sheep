@@ -8,7 +8,7 @@ import Image from "#src/components/Image";
 const STATUS_COLOR = {
   Completed: "green",
   Ongoing: "blue",
-  Suspended: "red"
+  Suspended: "red",
 };
 
 const Wrapper = styled.div`
@@ -33,24 +33,20 @@ const ChipC = styled(Chip)`
 
 const TitleWrapper = styled.div`
   margin-top: 5px;
-  background-color: #ff0000d1;
-  padding: 0.005rem 0.2rem;
+  ${"" /* background-color: #ff0000d1; */}
+  padding: 0.3rem 0.2rem;
 
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: justify;
-  -ms-flex-pack: justify;
   justify-content: space-between;
-  -webkit-box-align: start;
-  -ms-flex-align: start;
   align-items: flex-start;
+  ${"" /* justify-content: center; */}
 
   a {
-    color: white;
+    ${"" /* text-align: center; */}
+    color: #22222;
     font-size: 16px;
     font-size: 1rem;
-    font-weight: 300;
+    font-weight: 600;
     line-height: 19px;
     display: inline-block;
     display: -webkit-box;
@@ -66,7 +62,7 @@ const TitleWrapper = styled.div`
 `;
 
 const MangaCard = ({ className, manga }) => {
-  const sanitiseTitle = title =>
+  const sanitizeTitle = (title) =>
     title
       .toLowerCase()
       .replace(/[^a-z0-9]/g, "-")
@@ -79,7 +75,7 @@ const MangaCard = ({ className, manga }) => {
 
   return (
     <Wrapper className={className + " effect-bgc"}>
-      <Link to={`/${manga.id}-${sanitiseTitle(manga.title)}`}>
+      <Link to={`/${manga.id}-${sanitizeTitle(manga.title)}`}>
         <div style={{ position: "relative" }}>
           <ChipC color={STATUS_COLOR[manga.status]} text={manga.status} />
           <Image src={imageSrc} />
@@ -87,8 +83,9 @@ const MangaCard = ({ className, manga }) => {
       </Link>
 
       <TitleWrapper>
-        <Link to={`/${manga.id}-${sanitiseTitle(manga.title)}`}>{manga.title ? manga.title : "-"}</Link>
+        <Link to={`/${manga.id}-${sanitizeTitle(manga.title)}`}>{manga.title ? manga.title : "-"}</Link>
       </TitleWrapper>
+      <div>{manga.hits}</div>
     </Wrapper>
   );
 };

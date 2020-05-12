@@ -4,6 +4,8 @@ import styled from "styled-components";
 import { fromUnixTime, differenceInDays, formatDistanceToNow, format } from "date-fns";
 import _ from "lodash";
 
+import "./style.css";
+
 const ListWrapper = styled.ul`
   background-color: #ffffff69;
   padding: calc(3px + 0.5vw);
@@ -13,7 +15,7 @@ const ListWrapper = styled.ul`
 const ListItem = styled.li`
   text-decoration: none;
   list-style-type: none;
-  padding: calc(5px + 0.3vw);
+  padding: calc(5px + 0.3vw) 0;
   border-bottom: 1px solid #dcdcdc;
   display: flex;
   align-items: center;
@@ -23,6 +25,7 @@ const ListItem = styled.li`
   }
 
   a {
+    font-weight: 600;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -35,6 +38,10 @@ const ListItem = styled.li`
 
   span {
     font-size: 0.8rem;
+  }
+
+  @media only screen and (min-width: 400px) {
+    padding: calc(5px + 0.3vw);
   }
 `;
 
@@ -81,67 +88,82 @@ const FilterButton = styled.div`
 const NO_OF_DAYS = 2;
 const INITIAL_LIMIT = 10;
 const SEPARATOR = " - ";
+const ALL_CHAPTERS = "All Chapters";
+const CHAPTER_PER_PAGE = 100;
 
 const List = ({ chapters, mangaId, mangaName }) => {
   const [mangaLimit, setMangaLimit] = useState(INITIAL_LIMIT);
+  const [selectedFilter, setSelectedFilter] = useState(ALL_CHAPTERS);
+  const [isAsc, setIsAsc] = useState(false);
   const [fChapters, setFChapters] = useState(chapters);
+  const [isShowMore, setIsShowMore] = useState(true);
 
-  const showMore = () => {
-    setMangaLimit(mangaLimit + 100);
-  };
-
-  const chapterNumberFilter = [];
-  let filterChapterNum = -1;
-  while (filterChapterNum < getLastChapterNumber(chapters)) {
-    let startingCount = filterChapterNum + 1;
-    filterChapterNum = filterChapterNum + 100;
-    chapterNumberFilter.push(startingCount + SEPARATOR + filterChapterNum);
-  }
-
-  const filterButtonClick = useCallback(
-    (e, showAll) => {
-      const filters = e.target.innerHTML.split(SEPARATOR);
-      showAll
-        ? setFChapters(chapters)
-        : setFChapters(
-            chapters.filter(
-              c => parseFloat(c.number) > parseFloat(filters[0]) && parseFloat(c.number) < parseFloat(filters[1])
-            )
-          );
-    },
-    [setFChapters]
-  );
-
-  const Comparator = (a, b) => {
-    if (a[2] < b[2]) return -1;
-    if (a[2] > b[2]) return 1;
-    return 0;
+  const showMore = (x) => {
+    let limit = x ? fChapters.length : INITIAL_LIMIT;
+    setMangaLimit(limit);
+    setIsShowMore(!x);
   };
 
   const sortAscDesc = () => {
     let aa = _.cloneDeep(fChapters);
     setFChapters(aa.reverse());
+    setIsAsc(!isAsc);
   };
 
-  const FilterButtons = (
-    <>
-      <FilterButton onClick={() => sortAscDesc()} style={{ backgroundColor: "#222" }}>
-        &#8645;
-      </FilterButton>
-      <FilterButton className="effect-bgc" onClick={e => filterButtonClick(e, true)}>
-        All Chapters
-      </FilterButton>
-      {chapterNumberFilter.map((filter, index) => (
-        <FilterButton className="effect-bgc" key={index} onClick={e => filterButtonClick(e, false)}>
-          {filter}
-        </FilterButton>
-      ))}
-    </>
-  );
+  const FilterButtons = () => {
+    const chapterNumberFilter = [];
+    let filterChapterNum = -1;
+    while (filterChapterNum < getLastChapterNumber(chapters)) {
+      let startingCount = filterChapterNum + 1;
+      filterChapterNum = filterChapterNum + CHAPTER_PER_PAGE;
+      chapterNumberFilter.push(startingCount + SEPARATOR + filterChapterNum);
+    }
 
+    const filterButtonClick = (e, showAll) => {
+      let _filter = e.target.innerHTML;
+      const filters = _filter.split(SEPARATOR);
+      let chapterClone = _.cloneDeep(chapters);
+      const _chapters = isAsc ? chapterClone.reverse() : chapterClone;
+      showAll
+        ? setFChapters(_chapters)
+        : setFChapters(
+            _chapters.filter(
+              (c) => parseFloat(c.number) > parseFloat(filters[0]) && parseFloat(c.number) < parseFloat(filters[1])
+            )
+          );
+      setSelectedFilter(_filter);
+      showLess();
+    };
+
+    return (
+      <>
+        <FilterButton
+          className={`effect-bgc ${selectedFilter == ALL_CHAPTERS ? "list-filter-selected" : ""}`}
+          onClick={(e) => filterButtonClick(e, true)}
+        >
+          {ALL_CHAPTERS}
+        </FilterButton>
+        {chapterNumberFilter.map((filter, index) => (
+          <FilterButton
+            className={`effect-bgc ${selectedFilter == filter ? "list-filter-selected" : ""}`}
+            key={index}
+            onClick={(e) => filterButtonClick(e, false)}
+          >
+            {filter}
+          </FilterButton>
+        ))}
+      </>
+    );
+  };
+  // &#8645;
   return (
     <>
-      <FilterButtonWrapper>{FilterButtons}</FilterButtonWrapper>
+      <FilterButtonWrapper>
+        <FilterButton onClick={() => sortAscDesc()} style={{ backgroundColor: "var(--global-black-color)" }}>
+          {isAsc ? <>&#8595;</> : <>&#8593;</>}
+        </FilterButton>
+        {chapters.length >= CHAPTER_PER_PAGE && <FilterButtons />}
+      </FilterButtonWrapper>
       <ListWrapper>
         {chapters &&
           fChapters.slice(0, mangaLimit).map((chapter, index) => (
@@ -155,19 +177,23 @@ const List = ({ chapters, mangaId, mangaName }) => {
             </ListItem>
           ))}
         <ShowMore>
-          <span onClick={showMore}>Show More &#x25BC;</span>
+          {isShowMore ? (
+            <span onClick={() => showMore(true)}>Show More &#x25BC;</span>
+          ) : (
+            <span onClick={() => showMore(false)}>Show Less &#x25B2;</span>
+          )}
         </ShowMore>
       </ListWrapper>
     </>
   );
 };
 
-const dateFormat = lastUpdated => {
+const dateFormat = (lastUpdated) => {
   let date = fromUnixTime(lastUpdated);
   return differenceInDays(new Date(), date) <= NO_OF_DAYS ? formatDistanceToNow(date) : format(date, "PP");
 };
 
-const getLastChapterNumber = chapters => {
+const getLastChapterNumber = (chapters) => {
   let chaplen = chapters.length;
   let firstValue = chapters[0].number;
   let lastValue = chapters[chaplen - 1].number;

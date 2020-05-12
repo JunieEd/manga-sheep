@@ -2,7 +2,7 @@ import { BACKDROP_SHOW, BACKDROP_HIDE } from "#src/constants";
 
 const initialState = {
   backdropShow: false,
-  isSearchBackdrop: false
+  isSearchBackdrop: false,
 };
 
 const backdropReducer = (state = initialState, action) => {
@@ -11,13 +11,13 @@ const backdropReducer = (state = initialState, action) => {
       return {
         ...state,
         show: true,
-        isFromSearch: action.payload
+        isFromSearch: action.payload,
       };
     case BACKDROP_HIDE:
       return {
         ...state,
         show: false,
-        isFromSearch: action.payload
+        isFromSearch: action.payload,
       };
     default:
       return state;

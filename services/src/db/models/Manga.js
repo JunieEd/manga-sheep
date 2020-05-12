@@ -2,13 +2,12 @@ import mongoose from "mongoose";
 
 export const schema = new mongoose.Schema({
   alias: String,
-  author: String,
-  catergories: [String],
+  categories: [String],
   hits: Number,
   image: String,
   lastUpdated: Number,
   status: Number,
-  title: String
+  title: String,
 });
 
 const Manga = mongoose.model("Manga", schema);

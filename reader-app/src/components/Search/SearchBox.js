@@ -20,6 +20,7 @@ const SearchInput = styled.input.attrs({ placeholder: "Search Manga" })`
   flex: 1;
   line-height: var(--global-nav-height);
   outline: none;
+  background-color: #191919;
 
   ::-webkit-search-cancel-button {
     color: red;
@@ -46,12 +47,12 @@ const Autocomplete = ({ handleChange, xButtonClickHandler, OptionClickHandler, f
       borderRadius: "5px",
       height: "calc(var(--global-nav-height) - 15px)",
       paddingRight: "15px",
-      width: "calc(250px + 10vw)"
+      width: "calc(250px + 10vw)",
     };
 
     iconWrapperStyle = {
       height: "calc(var(--global-nav-height) - 15px)",
-      width: "var(--global-nav-height)"
+      width: "var(--global-nav-height)",
     };
   }
 

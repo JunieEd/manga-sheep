@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
 import { MangaCard, MangaCardV2 } from "#src/components/MangaCard";
@@ -49,7 +49,27 @@ const PHStyledMangaCardVertical = styled(PHMangaCardV2)`
   }
 `;
 
-const MangaGrid = ({ noOfMangas = 0, loading, mangas, variant = "horizontal" }) => {
+const ShowMore = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: calc(20px + 0.3vw);
+
+  span {
+    font-weight: 600;
+    cursor: pointer;
+
+    :hover {
+      color: var(--global-red-color);
+    }
+  }
+`;
+
+const MangaGrid = ({ noOfMangas = 0, loading = false, mangas = [], variant = "horizontal", pagination = false }) => {
+  const [isShowMore, setIsShowMore] = useState(true);
+  const [mangaShowSize, setMangaShowSize] = useState(noOfMangas);
+
   let StyledMangaCard = StyledMangaCardDefault;
   let PHStyledMangaCard = PHStyledMangaCardDefault;
 
@@ -62,12 +82,31 @@ const MangaGrid = ({ noOfMangas = 0, loading, mangas, variant = "horizontal" }) 
       break;
   }
 
+  const showMore = (x) => {
+    let mangaPage = x ? noOfMangas + mangaShowSize : noOfMangas - mangaShowSize;
+    setMangaShowSize(mangaPage);
+    setIsShowMore(mangaPage < mangas.length);
+  };
+
   return (
-    <Wrapper>
-      {!loading && mangas
-        ? mangas.map((manga, index) => <StyledMangaCard key={manga.id} manga={manga} top={index + 1} />)
-        : [...Array(noOfMangas)].map((value, index) => <PHStyledMangaCard key={index} />)}
-    </Wrapper>
+    <>
+      <Wrapper>
+        {!loading && mangas
+          ? mangas
+              .slice(0, mangaShowSize)
+              .map((manga, index) => <StyledMangaCard key={manga.id} manga={manga} top={index + 1} />)
+          : [...Array(noOfMangas)].map((value, index) => <PHStyledMangaCard key={index} />)}
+      </Wrapper>
+      {!loading && pagination && (
+        <ShowMore>
+          {isShowMore ? (
+            <span onClick={() => showMore(true)}>Show More &#x25BC;</span>
+          ) : (
+            <span onClick={() => showMore(false)}>Show Less &#x25B2;</span>
+          )}
+        </ShowMore>
+      )}
+    </>
   );
 };
 

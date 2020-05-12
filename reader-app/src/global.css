@@ -8,25 +8,44 @@
   --global-link-color: #1890ff;
   --global-red-color: red;
   --global-breakpoint-small: 576px;
-  --global-font-color: #454545
+  --global-font-color: #454545;
+  --global-black-color: #454545;
+}
+
+html {
+  overflow: visible;
+  overflow-y: scroll;
+}
+
+body,
+#app {
+  height: 100%;
 }
 
 html,
 body,
 #app {
   width: 100%;
-  height: 100%;
   margin: 0px;
   padding: 0px;
   overflow-x: hidden;
-
   font-family: "Roboto";
   font-size: 16px;
   font-weight: 300;
   color: var(--global-font-color);
-
   line-height: 1.5;
   -webkit-font-smoothing: antialiased !important;
+}
+
+::-webkit-scrollbar {
+  -webkit-appearance: none;
+  width: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 5px;
+  background-color: rgba(255, 0, 0);
+  -webkit-box-shadow: 0 0 1px rgba(255, 255, 255, .5);
 }
 
 * {

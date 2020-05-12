@@ -2,3 +2,4 @@ export const BACKDROP_SHOW = "BACKDROP_SHOW";
 export const BACKDROP_HIDE = "BACKDROP_HIDE";
 export const MENU_DRAWER_SHOW = "MENU_DRAWER_SHOW";
 export const MENU_DRAWER_HIDE = "MENU_DRAWER_HIDE";
+export const SET_MANGAS = "SET_MANGAS";

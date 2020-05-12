@@ -10,8 +10,6 @@ const seed = async () => {
   const res = await fetchAllMangas("en");
   const mangas = res.data.manga;
 
-  console.log;
-
   await Manga.insertMany(mangas);
 
   console.log("seeded");

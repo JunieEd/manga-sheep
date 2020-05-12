@@ -24,19 +24,27 @@ const typeDefs = gql`
   }
 
   type Manga {
+    categories: [String]
     id: ID!
     info: MangaInfo!
     image: String
     lastUpdated: Date!
     status: MangaStatus
     title: String!
+    hits: Int!
   }
 
   type MangaInfo {
+    aka: [String!]!
+    artist: String
     author: String
+    categories: [String!]!
     chapters: [Chapter!]!
+    chapters_len: String!
     description: String!
     id: String!
+    released: String
+    type: String
   }
 
   type Query {
@@ -45,8 +53,15 @@ const typeDefs = gql`
     mangas(
       searchTitle: String
       topUpdates: Boolean
+      fromDate: Int
+      toDate: Int
       allUpdates: Boolean
       topManga: Boolean
+      allManga: Boolean
+      status: String
+      categories: [String]
+      sortByType: String
+      isAsc: Boolean
       first: Int
     ): [Manga!]!
   }

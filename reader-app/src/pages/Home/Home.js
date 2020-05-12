@@ -11,7 +11,7 @@ const Home = () => {
     <div className="container">
       <div className="row">
         <div className="col col-1">
-          <Title text="POPULAR MANGA UPDATES" route="/mangalist" />
+          <Title text="POPULAR UPDATES" route="/mangalist" />
           <PopularMangaUpdates />
           <Ads />
           <Title text="ALL UPDATES" route="/mangalist" />

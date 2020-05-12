@@ -6,11 +6,11 @@ const resolvers = {
   MangaStatus: {
     Suspended: 0,
     Ongoing: 1,
-    Completed: 2
+    Completed: 2,
   },
   Chapter,
   Manga,
-  Query
+  Query,
 };
 
 export default resolvers;

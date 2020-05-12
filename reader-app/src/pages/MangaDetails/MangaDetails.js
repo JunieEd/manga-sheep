@@ -8,8 +8,8 @@ import MangaInfo from "./MangaInfo";
 
 const MangaDetails = ({
   match: {
-    params: { mangaId, mangaName }
-  }
+    params: { mangaId, mangaName },
+  },
 }) => {
   return (
     <div className="container">

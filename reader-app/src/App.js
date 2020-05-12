@@ -25,10 +25,15 @@ const Main = styled.main`
   margin-top: calc(var(--global-nav-height) + 5px);
   width: 100%;
 `;
+
+const AppContainer = styled.div`
+  background-color: #222;
+`;
+
 const App = () => {
   return (
     <BreakpointProvider>
-      <div className="app-container">
+      <AppContainer>
         <Toolbar />
         <SideDrawer />
         <Backdrop />
@@ -45,7 +50,7 @@ const App = () => {
             <Route component={Default} />
           </Switch>
         </Main>
-      </div>
+      </AppContainer>
     </BreakpointProvider>
   );
 };

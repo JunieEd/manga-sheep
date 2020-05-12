@@ -17,13 +17,18 @@ const query = gql`
       id
       title
       info {
+        artist
+        author
         chapters {
           id
           lastUpdated
           number
           title
         }
+        categories
+        chapters_len
         description
+        released
       }
       image
       status
@@ -47,10 +52,7 @@ const ImageContainer = styled.div`
   padding: calc(8px + 0.3vw);
   border-radius: calc(10px + 0.1vw);
   min-width: 200px;
-
-  :hover {
-    background-color: white;
-  }
+  background-color: white;
 `;
 
 const InfoWrapper = styled.div`
@@ -69,14 +71,18 @@ const InfoRow = styled.div`
   display: flex;
   padding-top: calc(5px + 0.1vw);
   padding-bottom: calc(5px + 0.1vw);
+  align-items: center;
+  align-content: center;
 `;
 
 const InfoLabel = styled.div`
-  width: 100px;
+  width: calc(100px + 0.5vw);
+  font-size: 0.9rem;
 `;
 
-const InfoValue = styled.span`
+const InfoValue = styled.div`
   font-weight: 600;
+  width: 67%;
 `;
 
 const DescriptionWrapper = styled.div`
@@ -91,23 +97,29 @@ const DescriptionWrapper = styled.div`
   }
 `;
 
+const MangaTitle = styled(Title)`
+  color: red !important;
+  font-family: "Roboto" !important;
+`;
+
 const MangaInfo = ({ mangaId, mangaName }) => {
   const { data, loading } = useQuery(query, {
-    variables: { mangaId }
+    variables: { mangaId },
   });
+
   return (
     !loading &&
     data && (
       <>
-        <Title text={data.manga.title} route="" />
+        <MangaTitle text={data.manga.title} route="" />
         <BasicInfoWrapper>
           <ImageContainer>
             <Image src={data.manga.image} />
           </ImageContainer>
           <InfoWrapper>
             <InfoRow>
-              <InfoLabel>Release Year:</InfoLabel>
-              <InfoValue>{data.manga.status}</InfoValue>
+              <InfoLabel>Released Year:</InfoLabel>
+              <InfoValue>{data.manga.info.released}</InfoValue>
             </InfoRow>
             <InfoRow>
               <InfoLabel>Status:</InfoLabel>
@@ -115,19 +127,19 @@ const MangaInfo = ({ mangaId, mangaName }) => {
             </InfoRow>
             <InfoRow>
               <InfoLabel>Categories:</InfoLabel>
-              <InfoValue>{data.manga.status}</InfoValue>
+              <InfoValue>{data.manga.info.categories.join(", ")}</InfoValue>
             </InfoRow>
             <InfoRow>
               <InfoLabel>Author(s):</InfoLabel>
-              <InfoValue>{data.manga.status}</InfoValue>
+              <InfoValue>{data.manga.info.author}</InfoValue>
             </InfoRow>
             <InfoRow>
               <InfoLabel>Artist(s):</InfoLabel>
-              <InfoValue>{data.manga.status}</InfoValue>
+              <InfoValue>{data.manga.info.artist}</InfoValue>
             </InfoRow>
             <InfoRow>
-              <InfoLabel>Chapters:</InfoLabel>
-              <InfoValue>{data.manga.status}</InfoValue>
+              <InfoLabel>Total Chapters:</InfoLabel>
+              <InfoValue>{data.manga.info.chapters_len}</InfoValue>
             </InfoRow>
           </InfoWrapper>
         </BasicInfoWrapper>

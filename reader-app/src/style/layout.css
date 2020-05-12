@@ -1,7 +1,7 @@
 .container {
     width: 100%;
-    padding-right: 15px;
-    padding-left: 15px;
+    padding-right: calc(12px + 0.5vw);
+    padding-left: calc(12px + 0.5vw);
     padding-top: 15px;
     margin-right: auto;
     margin-left: auto;
@@ -9,8 +9,6 @@
 
 .col {
     max-width: 100%;
-    padding-right: calc(20px + 1vw);
-    padding-left: calc(20px + 1vw);
     position: relative;
 }
 
@@ -27,8 +25,8 @@
     display: flex;
     -ms-flex-wrap: wrap;
     flex-wrap: wrap;
-    margin-right: -15px;
-    margin-left: -15px;
+    /* margin-right: -15px;
+    margin-left: -15px; */
 }
 
 @media (min-width: 576px) {
@@ -62,12 +60,17 @@
         max-width: 960px;
     }
 
+    .col {
+        padding-right: calc(10px + 1vw);
+        padding-left: calc(10px + 1vw);
+    }
+
     .col-1 {
-        flex: 70%;
+        flex: 75%;
     }
 
     .col-2 {
-        flex: 30%;
+        flex: 25%;
     }
 }
 
