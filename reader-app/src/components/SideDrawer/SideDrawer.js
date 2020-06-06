@@ -63,7 +63,7 @@ const BottomLine = styled.div`
   background-color: var(--global-red-color);
 `;
 
-const SideDrawer = props => {
+const SideDrawer = (props) => {
   return (
     <SideDrawerNav className="matted-white" style={{ transform: `${props.show ? "translateY(0)" : ""}` }}>
       <SideDrawerHeader>
@@ -93,14 +93,8 @@ const SideDrawer = props => {
         </SideDrawerMenuListItem>
         <hr />
         <SideDrawerMenuListItem>
-          <Link to="/mangalist" className="noSelect" onClick={props.menuDrawerHide}>
-            About Us
-          </Link>
-        </SideDrawerMenuListItem>
-        <hr />
-        <SideDrawerMenuListItem>
-          <Link to="/mangalist" className="noSelect" onClick={props.menuDrawerHide}>
-            Login
+          <Link to="/savedManga" className="noSelect" onClick={props.menuDrawerHide}>
+            Saved Manga
           </Link>
         </SideDrawerMenuListItem>
       </SideDrawerMenuList>
@@ -109,18 +103,18 @@ const SideDrawer = props => {
   );
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
-    show: state.menuDrawer.show
+    show: state.menuDrawer.show,
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
     menuDrawerHide: () => {
       dispatch(menuDrawerHide());
       dispatch(backdropHide());
-    }
+    },
   };
 };
 

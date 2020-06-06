@@ -1,10 +1,20 @@
 import Manga from "#root/db/models/Manga";
+// import mongoose from "mongoose";
 
 const MANGA_STATUS = {
   Suspended: 0,
   Ongoing: 1,
   Completed: 2,
 };
+
+// const convertId = (ids) => {
+//   let convertedIds = [];
+//   for (let i = 0; i < ids.length; i++) {
+//     convertedIds.push(mongoose.Types.ObjectId(ids[i]));
+//   }
+//   console.log("converted2", convertedIds);
+//   return convertedIds;
+// };
 
 const mangasResolver = (context, args) => {
   if (args.searchTitle) {
@@ -13,6 +23,8 @@ const mangasResolver = (context, args) => {
     })
       .limit(args.first)
       .sort({ hits: -1 });
+  } else if (args.searchIds) {
+    return Manga.find({ _id: { $in: args.searchIds } }).sort({ hits: -1 });
   }
   //popular manga updates
   else if (args.topUpdates) {

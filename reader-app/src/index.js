@@ -3,7 +3,8 @@ import { ApolloProvider } from "react-apollo";
 import { render } from "react-dom";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
-import { Provider } from "react-redux";
+import { Provider as ReduxProvider } from "react-redux";
+import { Provider as BookmarkedMangaProvider } from "#src/contexts/BookmarkedMangaContext";
 import store from "#src/redux/store";
 
 import graphqlClient from "#src/api/graphql";
@@ -34,12 +35,14 @@ import "./global.css";
 // };
 
 render(
-  <Provider store={store}>
-    <ApolloProvider client={graphqlClient}>
-      <Router>
-        <App />
-      </Router>
-    </ApolloProvider>
-  </Provider>,
+  <BookmarkedMangaProvider>
+    <ReduxProvider store={store}>
+      <ApolloProvider client={graphqlClient}>
+        <Router>
+          <App />
+        </Router>
+      </ApolloProvider>
+    </ReduxProvider>
+  </BookmarkedMangaProvider>,
   document.getElementById("app")
 );

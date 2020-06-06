@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { fromUnixTime, differenceInDays, formatDistanceToNow, format } from "date-fns";
 import _ from "lodash";
 
+import FilterButtons from "./FilterButtons";
 import "./style.css";
 
 const ListWrapper = styled.ul`
@@ -63,33 +64,9 @@ const ShowMore = styled.div`
   }
 `;
 
-const FilterButtonWrapper = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  margin-bottom: calc(10px + 0.1vw);
-`;
-
-const FilterButton = styled.div`
-  background-color: #b9b9b9;
-  color: white;
-  line-height: 1.5rem;
-  font-size: 0.9rem;
-  border-radius: calc(4px + 0.1vw);
-  padding: calc(4px + 0.1vw) calc(6px + 0.1vw);
-  cursor: pointer;
-  margin: calc(2px + 0.1vw) calc(2px + 0.1vw);
-  border: none;
-
-  :hover {
-    background-color: red;
-  }
-`;
-
 const NO_OF_DAYS = 2;
 const INITIAL_LIMIT = 10;
-const SEPARATOR = " - ";
 const ALL_CHAPTERS = "All Chapters";
-const CHAPTER_PER_PAGE = 100;
 
 const List = ({ chapters, mangaId, mangaName }) => {
   const [mangaLimit, setMangaLimit] = useState(INITIAL_LIMIT);
@@ -104,66 +81,20 @@ const List = ({ chapters, mangaId, mangaName }) => {
     setIsShowMore(!x);
   };
 
-  const sortAscDesc = () => {
-    let aa = _.cloneDeep(fChapters);
-    setFChapters(aa.reverse());
-    setIsAsc(!isAsc);
-  };
-
-  const FilterButtons = () => {
-    const chapterNumberFilter = [];
-    let filterChapterNum = -1;
-    while (filterChapterNum < getLastChapterNumber(chapters)) {
-      let startingCount = filterChapterNum + 1;
-      filterChapterNum = filterChapterNum + CHAPTER_PER_PAGE;
-      chapterNumberFilter.push(startingCount + SEPARATOR + filterChapterNum);
-    }
-
-    const filterButtonClick = (e, showAll) => {
-      let _filter = e.target.innerHTML;
-      const filters = _filter.split(SEPARATOR);
-      let chapterClone = _.cloneDeep(chapters);
-      const _chapters = isAsc ? chapterClone.reverse() : chapterClone;
-      showAll
-        ? setFChapters(_chapters)
-        : setFChapters(
-            _chapters.filter(
-              (c) => parseFloat(c.number) > parseFloat(filters[0]) && parseFloat(c.number) < parseFloat(filters[1])
-            )
-          );
-      setSelectedFilter(_filter);
-      showLess();
-    };
-
-    return (
-      <>
-        <FilterButton
-          className={`effect-bgc ${selectedFilter == ALL_CHAPTERS ? "list-filter-selected" : ""}`}
-          onClick={(e) => filterButtonClick(e, true)}
-        >
-          {ALL_CHAPTERS}
-        </FilterButton>
-        {chapterNumberFilter.map((filter, index) => (
-          <FilterButton
-            className={`effect-bgc ${selectedFilter == filter ? "list-filter-selected" : ""}`}
-            key={index}
-            onClick={(e) => filterButtonClick(e, false)}
-          >
-            {filter}
-          </FilterButton>
-        ))}
-      </>
-    );
-  };
   // &#8645;
   return (
     <>
-      <FilterButtonWrapper>
-        <FilterButton onClick={() => sortAscDesc()} style={{ backgroundColor: "var(--global-black-color)" }}>
-          {isAsc ? <>&#8595;</> : <>&#8593;</>}
-        </FilterButton>
-        {chapters.length >= CHAPTER_PER_PAGE && <FilterButtons />}
-      </FilterButtonWrapper>
+      <FilterButtons
+        chapters={chapters}
+        selectedFilter={selectedFilter}
+        allChapter={ALL_CHAPTERS}
+        isAsc={isAsc}
+        setIsAsc={setIsAsc}
+        fChapters={fChapters}
+        setFChapters={setFChapters}
+        setSelectedFilter={setSelectedFilter}
+      />
+
       <ListWrapper>
         {chapters &&
           fChapters.slice(0, mangaLimit).map((chapter, index) => (
@@ -176,13 +107,15 @@ const List = ({ chapters, mangaId, mangaName }) => {
               <span>{dateFormat(chapter.lastUpdated)}</span>
             </ListItem>
           ))}
-        <ShowMore>
-          {isShowMore ? (
-            <span onClick={() => showMore(true)}>Show More &#x25BC;</span>
-          ) : (
-            <span onClick={() => showMore(false)}>Show Less &#x25B2;</span>
-          )}
-        </ShowMore>
+        {fChapters.length > INITIAL_LIMIT && (
+          <ShowMore>
+            {isShowMore ? (
+              <span onClick={() => showMore(true)}>Show More &#x25BC;</span>
+            ) : (
+              <span onClick={() => showMore(false)}>Show Less &#x25B2;</span>
+            )}
+          </ShowMore>
+        )}
       </ListWrapper>
     </>
   );
@@ -191,14 +124,6 @@ const List = ({ chapters, mangaId, mangaName }) => {
 const dateFormat = (lastUpdated) => {
   let date = fromUnixTime(lastUpdated);
   return differenceInDays(new Date(), date) <= NO_OF_DAYS ? formatDistanceToNow(date) : format(date, "PP");
-};
-
-const getLastChapterNumber = (chapters) => {
-  let chaplen = chapters.length;
-  let firstValue = chapters[0].number;
-  let lastValue = chapters[chaplen - 1].number;
-
-  return firstValue > lastValue ? firstValue : lastValue;
 };
 
 export default List;

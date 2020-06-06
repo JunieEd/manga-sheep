@@ -52,6 +52,7 @@ const typeDefs = gql`
     chapter(id: ID!): Chapter!
     mangas(
       searchTitle: String
+      searchIds: [String]
       topUpdates: Boolean
       fromDate: Int
       toDate: Int

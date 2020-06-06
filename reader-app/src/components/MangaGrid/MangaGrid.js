@@ -8,7 +8,6 @@ const Wrapper = styled.div`
   display: flex;
   flex-flow: row wrap;
   align-content: initial;
-  content-align: center;
 `;
 
 const StyledMangaCardDefault = styled(MangaCard)`
@@ -33,7 +32,7 @@ const StyledMangaCardVertical = styled(MangaCardV2)`
   @media only screen and (min-width: 400px) {
     width: 50%;
   }
-  @media only screen and (min-width: 992px) {
+  @media only screen and (min-width: 1025px) {
     width: 100%;
   }
 `;
@@ -44,7 +43,7 @@ const PHStyledMangaCardVertical = styled(PHMangaCardV2)`
   @media only screen and (min-width: 400px) {
     width: 50%;
   }
-  @media only screen and (min-width: 992px) {
+  @media only screen and (min-width: 1025px) {
     width: 100%;
   }
 `;
@@ -66,7 +65,23 @@ const ShowMore = styled.div`
   }
 `;
 
-const MangaGrid = ({ noOfMangas = 0, loading = false, mangas = [], variant = "horizontal", pagination = false }) => {
+const NoMangaFoundWrapper = styled.div`
+  height: calc(200px + 2vh);
+  width: 100%;
+  display: flex;
+  align-content: center;
+  align-items: center;
+  justify-content: center;
+`;
+
+const MangaGrid = ({
+  noOfMangas = 0,
+  loading = false,
+  mangas = [],
+  variant = "horizontal",
+  pagination = false,
+  isRanked = false,
+}) => {
   const [isShowMore, setIsShowMore] = useState(true);
   const [mangaShowSize, setMangaShowSize] = useState(noOfMangas);
 
@@ -83,9 +98,18 @@ const MangaGrid = ({ noOfMangas = 0, loading = false, mangas = [], variant = "ho
   }
 
   const showMore = (x) => {
-    let mangaPage = x ? noOfMangas + mangaShowSize : noOfMangas - mangaShowSize;
-    setMangaShowSize(mangaPage);
-    setIsShowMore(mangaPage < mangas.length);
+    let mangaPage = x ? mangaShowSize + noOfMangas : mangaShowSize - noOfMangas;
+    let fixMangaPage = x
+      ? mangaPage > mangas.length
+        ? mangas.length
+        : mangaPage
+      : mangaPage < noOfMangas
+      ? noOfMangas
+      : mangaPage;
+
+    console.log(mangaPage, fixMangaPage);
+    setMangaShowSize(fixMangaPage);
+    setIsShowMore(fixMangaPage < mangas.length);
   };
 
   return (
@@ -94,10 +118,16 @@ const MangaGrid = ({ noOfMangas = 0, loading = false, mangas = [], variant = "ho
         {!loading && mangas
           ? mangas
               .slice(0, mangaShowSize)
-              .map((manga, index) => <StyledMangaCard key={manga.id} manga={manga} top={index + 1} />)
+              .map((manga, index) => <StyledMangaCard key={manga.id} manga={manga} top={isRanked && index + 1} />)
           : [...Array(noOfMangas)].map((value, index) => <PHStyledMangaCard key={index} />)}
+
+        {!loading && mangas && mangas.length == 0 && (
+          <NoMangaFoundWrapper>
+            <span>No manga found.</span>
+          </NoMangaFoundWrapper>
+        )}
       </Wrapper>
-      {!loading && pagination && (
+      {!loading && pagination && mangas.length > noOfMangas && (
         <ShowMore>
           {isShowMore ? (
             <span onClick={() => showMore(true)}>Show More &#x25BC;</span>

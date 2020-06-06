@@ -38,8 +38,7 @@
     "react-scroll": "^1.7.16",
     "react-spring": "^8.0.27",
     "redux": "^4.0.5",
-    "styled-components": "^5.0.1",
-    "use-scroll-position": "^0.0.4"
+    "styled-components": "^5.0.1"
   },
   "alias": {
     "#src": "./src"

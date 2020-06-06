@@ -17,13 +17,13 @@ const MenuList_Items = styled.li`
   padding-right: 10px;
 
   > a {
-    color: red;
+    color: #c3c3c3;
     font-weight: 550;
     font-size: 1.1rem;
     line-height: var(--global-nav-height);
 
     :hover {
-      color: black;
+      color: red;
     }
   }
 `;
@@ -35,6 +35,9 @@ const Menulist = () => {
       </MenuList_Items>
       <MenuList_Items>
         <Link to="/mangalist">Manga List</Link>
+      </MenuList_Items>
+      <MenuList_Items>
+        <Link to="/savedmanga">Saved Manga</Link>
       </MenuList_Items>
     </MenuList>
   );

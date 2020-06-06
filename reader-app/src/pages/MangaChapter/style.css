@@ -2,3 +2,14 @@
     left: 13px;
     content: "\f27d";
 }
+
+label:after {
+    position: absolute;
+    top: 0;
+    right: 0;
+    content: "\01F893";
+    width: 24px;
+    top: 24%;
+    color: white;
+    font-size: 1.5rem;
+}

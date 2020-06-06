@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-import Ads from "#src/components/Ads/Ads";
+import Ads from "#src/components/Ads";
 import TopManga from "#src/components/TopManga";
 import { Title } from "#src/components/Column";
 import MangaInfo from "./MangaInfo";

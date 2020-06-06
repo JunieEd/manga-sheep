@@ -4,6 +4,7 @@ import gql from "graphql-tag";
 import LazyLoad from "react-lazyload";
 import styled from "styled-components";
 
+import Ads from "#src/components/Ads";
 import Nav from "./Nav";
 
 import "./style.css";
@@ -48,9 +49,17 @@ const ChapterImageWrapper = styled.div`
   }
 `;
 
+const NavStyled = styled(Nav)`
+  width: 100%;
+
+  @media only screen and (min-width: 992px) {
+    width: 60vw;
+  }
+`;
+
 const MangaChapter = ({
   match: {
-    params: { chapterId },
+    params: { mangaId, chapterId },
   },
 }) => {
   const { data, loading } = useQuery(query, {
@@ -61,17 +70,16 @@ const MangaChapter = ({
 
   return (
     <Wrapper>
-      <Nav />
+      <NavStyled mangaId={mangaId} chapterId={chapterId} />
       <ChapterImageWrapper>
         {[...data.chapter.images].reverse().map((image, index) => (
           <LazyLoad key={index} height={1000} resize={false}>
-            <div>
-              <img referrerPolicy="no-referrer" src={image.url} />
-            </div>
+            <img referrerPolicy="no-referrer" src={image.url} />
           </LazyLoad>
         ))}
       </ChapterImageWrapper>
-      <Nav />
+      <NavStyled mangaId={mangaId} chapterId={chapterId} />
+      <Ads />
     </Wrapper>
   );
 };

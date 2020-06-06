@@ -1,8 +1,8 @@
-import React, { useState, Component, useLayoutEffect } from "react";
+import React, { useState, useRef, useEffect, useCallback } from "react";
 import { useScrollPosition } from "@n8tb1t/use-scroll-position";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
-import { Breakpoint, useCurrentHeight } from "react-socks";
+import { Breakpoint, useCurrentWidth, useCurrentBreakpointName } from "react-socks";
 
 import HamburgerMenu from "./HamburgerMenu";
 import Search from "#src/components/Search";
@@ -28,28 +28,24 @@ const MenuNav = styled.nav`
   height: cal(var(--global-nav-height));
 `;
 
-const BottomLine = styled.div`
-  width: 100%;
-  height: 5px;
-  ${"" /* background: rgb(46, 4, 4); */}
-  ${"" /* background: linear-gradient(90deg, rgba(46, 4, 4, 1) 0%, rgba(255, 52, 52, 1) 43%); */}
-  background-color: red;
-`;
-
 const Toolbar = () => {
-  const backdrop = useSelector((state) => state.backdrop);
+  const [autoCompValue, setAutoCompValue] = useState("");
   const [hideOnScroll, setHideOnScroll] = useState(true);
+  const backdrop = useSelector((state) => state.backdrop);
+  const breakpoint = useCurrentBreakpointName();
 
   useScrollPosition(
     ({ prevPos, currPos }) => {
-      // console.log(prevPos, currPos);
-      const isShow = currPos.y > -500;
-      if (isShow !== hideOnScroll) setHideOnScroll(isShow);
+      const isShow = currPos.y > prevPos.y;
+      if (isShow !== hideOnScroll) {
+        //if (breakpoint == "tablet") {
+        setHideOnScroll(isShow);
+        setAutoCompValue("");
+        // }
+      }
     },
     [hideOnScroll]
   );
-
-  const classArr = ["matted-white"];
 
   const headerCustomStyle = {
     top: `${hideOnScroll ? "0" : "calc(var(--global-nav-height) * -1)"}`,
@@ -57,7 +53,7 @@ const Toolbar = () => {
   };
 
   return (
-    <ToolbarHeader className={classArr.join(" ")} style={headerCustomStyle}>
+    <ToolbarHeader className="matted" style={headerCustomStyle}>
       <MenuNav>
         <Breakpoint mobile only>
           <HamburgerMenu />
@@ -66,9 +62,8 @@ const Toolbar = () => {
         <Breakpoint smallMobile up style={{ flex: "1" }}>
           <MenuList />
         </Breakpoint>
-        <Search />
+        <Search autoCompValue={autoCompValue} setAutoCompValue={setAutoCompValue} />
       </MenuNav>
-      <BottomLine />
     </ToolbarHeader>
   );
 };

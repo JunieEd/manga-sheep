@@ -1,3 +1,4 @@
 import Chip from "./Chip";
+import Chip2 from "./Chip2";
 
-export default Chip;
+export { Chip, Chip2 };

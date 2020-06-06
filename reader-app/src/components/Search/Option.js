@@ -1,14 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import Chip from "#src/components/Chip";
+import { Chip } from "#src/components/Chip";
+import BookmarkButton from "#src/components/BookmarkButton";
 import { useDispatch } from "react-redux";
-import { backdropShow, backdropHide } from "#src/redux/Action";
+
+import "./style.css";
 
 const STATUS_COLOR = {
   Completed: "green",
   Ongoing: "blue",
-  Suspended: ""
+  Suspended: "",
 };
 
 const OptionInsideContainer = styled.div`
@@ -33,6 +35,7 @@ const OptionListItem = styled.li`
 
   :hover {
     background-color: #f6f6f4;
+    color: red;
   }
 
   @media only screen and (min-width: 768px) {
@@ -42,19 +45,27 @@ const OptionListItem = styled.li`
   }
 `;
 
+const OptionSubListItem = styled.div`
+  width: 100%;
+  align-items: center;
+  display: flex;
+  flex-flow: row nowrap;
+  list-style-position: inside;
+  cursor: pointer;
+
+  :hover {
+    background-color: #f6f6f4;
+    color: red;
+  }
+`;
+
 const MangaTitle = styled.div`
   flex: 1;
   overflow: hidden;
   text-overflow: ellipsis;
 
-  > a {
-    color: #1c2833;
-    white-space: normal;
-
-    :hover {
-      color: var(--global-link-color);
-    }
-  }
+  color: #1c2833;
+  white-space: normal;
 `;
 
 const OptionImage = styled.img`
@@ -65,38 +76,74 @@ const OptionImage = styled.img`
   display: block;
 `;
 
-const sanitiseTitle = title =>
+const sanitiseTitle = (title) =>
   title
     .toLowerCase()
     .replace(/[^a-z0-9]/g, "-")
     .replace(/-{2,}/g, "-");
 
-const Option = ({ mangas, OptionClickHandler }) => {
+const sanitiseSearchResult = (search) =>
+  search
+    .toLowerCase()
+    .replace(/[^a-z0-9]/g, "-")
+    .replace(/-{2,}/g, "-");
+
+const StarContainer = styled.div`
+  padding-left: calc(5px + 0.1vw);
+  padding-bottom: 3px;
+  cursor: pointer;
+`;
+
+const Option = ({ forDesktop, autoCompValue, setAutoCompValue, mangas }) => {
   const dispatch = useDispatch();
+  let hasResult = false;
+
+  // const handleClick = () => {
+  //   setAutoCompValue("");
+  // };
+
+  useEffect(() => {
+    // if (forDesktop) {
+    //   document.addEventListener("mouseclick", handleClick);
+    //   return () => {
+    //     document.removeEventListener("mouseclick", handleClick);
+    //   };
+    // }
+  }, []);
 
   if (!mangas) {
     return null;
+  } else {
+    hasResult = mangas.length > 0;
   }
 
-  const hasResult = mangas.length > 0;
+  const optionClickHandler = (id, title) => {
+    window.location = `/${id}-${sanitiseTitle(title)}`;
+  };
 
-  const optionItems = mangas.map(manga => (
-    <OptionListItem key={manga.id} onClick={OptionClickHandler}>
-      <Link to={`/${manga.id}-${sanitiseTitle(manga.title)}`}>
+  const optionAllSearchResultClickHandler = (e) => {
+    e.preventDefault();
+    if (hasResult) window.location = `/search?q=${encodeURI(autoCompValue)}`;
+    else window.location = `/mangalist`;
+  };
+
+  const optionItems = mangas.map((manga) => (
+    <OptionListItem key={manga.id}>
+      <OptionSubListItem onClick={() => optionClickHandler(manga.id, manga.title)}>
         <OptionImage referrerPolicy="no-referrer" src={manga.image} />
-      </Link>
-      <MangaTitle>
-        <Link to={`/${manga.id}-${sanitiseTitle(manga.title)}`}>{manga.title}</Link>
-      </MangaTitle>
-      <Chip color={STATUS_COLOR[manga.status]} text={manga.status}></Chip>
+        <MangaTitle>{manga.title}</MangaTitle>
+        <Chip color={STATUS_COLOR[manga.status]} text={manga.status}></Chip>
+      </OptionSubListItem>
+      <StarContainer>
+        {/* <StarIcon hasFill={false} height="20" /> */}
+        <BookmarkButton manga={manga} />
+      </StarContainer>
     </OptionListItem>
   ));
 
   return (
-    <>
-      {hasResult && (
-        <div style={{ padding: "5px 10px 5px 10px", marginTop: "-7px", backgroundColor: "#fff2f2" }}>Top Results</div>
-      )}
+    <div className={forDesktop ? "option-desktop-wrapper" : "option-mobile-wrapper"}>
+      {hasResult && <div style={{ padding: "5px 10px 5px 10px", backgroundColor: "#fff2f2" }}>Top Results</div>}
       <OptionInsideContainer>
         <OptionList>
           {hasResult && optionItems}
@@ -104,9 +151,11 @@ const Option = ({ mangas, OptionClickHandler }) => {
         </OptionList>
       </OptionInsideContainer>
       <div style={{ padding: "5px 0", textAlign: "center", backgroundColor: "#fff2f2" }}>
-        <Link to="/">View All {hasResult ? "Results" : "Manga"}</Link>
+        <Link to="" onClick={(e) => optionAllSearchResultClickHandler(e)}>
+          View All {hasResult ? "Results" : "Manga"}
+        </Link>
       </div>
-    </>
+    </div>
   );
 };
 

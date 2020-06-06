@@ -1,4 +1,4 @@
-import React, { useCallback, useState, useRef, useEffect } from "react";
+import React from "react";
 import { BreakpointProvider, setDefaultBreakpoints } from "react-socks";
 import styled from "styled-components";
 
@@ -7,12 +7,15 @@ import "./App.css";
 import Backdrop from "#src/components/Backdrop";
 import SideDrawer from "#src/components/SideDrawer";
 import Toolbar from "#src/components/Toolbar";
+import ScrollTop from "#src/components/ScrollTop";
 
 import Default from "#src/pages/Default/Default";
 import Home from "#src/pages/Home";
 import MangaChapter from "#src/pages/MangaChapter/MangaChapter";
 import MangaDetails from "#src/pages/MangaDetails";
 import MangaList from "#src/pages/MangaList";
+import SearchResult from "#src/pages/SearchResult";
+import SavedManga from "#src/pages/SavedManga";
 
 import { Switch, Route } from "react-router-dom";
 
@@ -22,7 +25,7 @@ const Main = styled.main`
   display: flex;
   flex-flow: row wrap;
   justify-content: center;
-  margin-top: calc(var(--global-nav-height) + 5px);
+  margin-top: calc(var(--global-nav-height));
   width: 100%;
 `;
 
@@ -47,9 +50,12 @@ const App = () => {
             <Route path="/home" component={Home} />
             <Route path="/:mangaId([a-z0-9]{24})-:mangaName([a-z0-9-]+)" component={MangaDetails} />
             <Route path="/mangalist" component={MangaList} />
+            <Route path="/search" component={SearchResult} />
+            <Route path="/savedmanga" component={SavedManga} />
             <Route component={Default} />
           </Switch>
         </Main>
+        <ScrollTop />
       </AppContainer>
     </BreakpointProvider>
   );

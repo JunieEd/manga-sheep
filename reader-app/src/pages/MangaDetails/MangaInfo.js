@@ -111,7 +111,7 @@ const MangaInfo = ({ mangaId, mangaName }) => {
     !loading &&
     data && (
       <>
-        <MangaTitle text={data.manga.title} route="" />
+        <MangaTitle text={mangaName} route="" />
         <BasicInfoWrapper>
           <ImageContainer>
             <Image src={data.manga.image} />

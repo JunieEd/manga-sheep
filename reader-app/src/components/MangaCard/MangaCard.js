@@ -2,8 +2,9 @@ import React, { useRef, useCallback, useLayoutEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-import Chip from "#src/components/chip";
+import { Chip2 } from "#src/components/chip";
 import Image from "#src/components/Image";
+import BookmarkButton from "#src/components/BookmarkButton";
 
 const STATUS_COLOR = {
   Completed: "green",
@@ -23,12 +24,16 @@ const Wrapper = styled.div`
   }
 `;
 
-const ChipC = styled(Chip)`
+const ChipC = styled(Chip2)`
   position: absolute;
-  top: 2px;
-  right: 2px;
+  top: 0;
+  left: 0;
   font-size: 0.5rem;
   z-index: 1;
+
+  @media only screen and (min-width: 768px) {
+    font-size: 0.6rem;
+  }
 `;
 
 const TitleWrapper = styled.div`
@@ -61,6 +66,27 @@ const TitleWrapper = styled.div`
   }
 `;
 
+const BookmarkButtonStyled = styled(BookmarkButton)`
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  font-size: 0.5rem;
+  z-index: 1;
+`;
+
+const SubWrapper = styled.div`
+  position: relative;
+`;
+const DarkGradient = styled.div`
+  background-image: linear-gradient(to top, rgba(255, 0, 0, 0), #0000009e);
+  height: calc(50px + 1vw);
+  width: 100%;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  border-radius: calc(3px + 0.1vw) calc(3px + 0.1vw);
+`;
+
 const MangaCard = ({ className, manga }) => {
   const sanitizeTitle = (title) =>
     title
@@ -75,17 +101,20 @@ const MangaCard = ({ className, manga }) => {
 
   return (
     <Wrapper className={className + " effect-bgc"}>
-      <Link to={`/${manga.id}-${sanitizeTitle(manga.title)}`}>
-        <div style={{ position: "relative" }}>
-          <ChipC color={STATUS_COLOR[manga.status]} text={manga.status} />
-          <Image src={imageSrc} />
-        </div>
-      </Link>
+      <SubWrapper>
+        <ChipC color={STATUS_COLOR[manga.status]} text={manga.status} />
+        <BookmarkButtonStyled manga={manga} />
+        <Link to={`/${manga.id}-${sanitizeTitle(manga.title)}`}>
+          <div style={{ position: "relative" }}>
+            <Image src={imageSrc} />
+            <DarkGradient />
+          </div>
+        </Link>
 
-      <TitleWrapper>
-        <Link to={`/${manga.id}-${sanitizeTitle(manga.title)}`}>{manga.title ? manga.title : "-"}</Link>
-      </TitleWrapper>
-      <div>{manga.hits}</div>
+        <TitleWrapper>
+          <Link to={`/${manga.id}-${sanitizeTitle(manga.title)}`}>{manga.title ? manga.title : "-"}</Link>
+        </TitleWrapper>
+      </SubWrapper>
     </Wrapper>
   );
 };

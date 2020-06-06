@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import { backdropHide, menuDrawerHide } from "#src/redux";
 
 const BackdropDiv = styled.div`
+  backdrop-filter: blur(3px);
   position: fixed;
   width: 100%;
   height: 100%;
@@ -14,26 +15,31 @@ const BackdropDiv = styled.div`
   z-index: 100;
 `;
 
-const Backdrop = props => {
-  if (!props.show) return null;
+const Backdrop = (props) => {
+  if (!props.show) {
+    document.documentElement.style.overflow = "unset";
+    return null;
+  } else {
+    document.documentElement.style.overflow = "hidden";
+  }
   return <BackdropDiv onClick={props.backdropHide.bind(this, !props.isFromSearch)} />;
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     show: state.backdrop.show,
-    isFromSearch: state.backdrop.isFromSearch
+    isFromSearch: state.backdrop.isFromSearch,
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
-    backdropHide: w => {
+    backdropHide: (w) => {
       if (w) {
         dispatch(backdropHide());
         dispatch(menuDrawerHide());
       }
-    }
+    },
   };
 };
 

@@ -24,6 +24,10 @@
   width: calc(var(--global-nav-height) + 10px);
 }
 
+.search-icon-wrapper.c-width {
+  width: calc(40px + 1vw);
+}
+
 .search-button {
   display: flex;
   flex-direction: column;
@@ -42,7 +46,7 @@
 
 .option-mobile-wrapper {
   position: absolute;
-  border-bottom: 5px solid red;
+  /* border-bottom: 5px solid red; */
   font-size: 0.9rem;
   top: var(--global-nav-height);
   left: 0;
@@ -55,13 +59,13 @@
 
 .option-desktop-wrapper {
   position: absolute;
-  border-bottom: 5px solid red;
+  /* border-bottom: 5px solid red; */
   font-size: 0.9rem;
   top: var(--global-nav-height);
   /* left: 0;
   right: 0; */
   z-index: 99;
-  margin: 0px auto 0 auto;
+  margin: -7px auto 0 auto;
   background-color: white;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
   width: calc(250px + 10vw);

@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { SearchIcon, XIcon } from "#src/components/Icon";
+import { SearchIcon, XIcon, BackArrowIcon } from "#src/components/Icon";
 import Option from "./Option";
 
 const SearchBox = styled.div`
@@ -20,7 +20,7 @@ const SearchInput = styled.input.attrs({ placeholder: "Search Manga" })`
   flex: 1;
   line-height: var(--global-nav-height);
   outline: none;
-  background-color: #191919;
+  background-color: white;
 
   ::-webkit-search-cancel-button {
     color: red;
@@ -36,20 +36,19 @@ const IconWrapper = styled.div`
   @media only screen and (min-width: 10px);
 `;
 
-const Autocomplete = ({ handleChange, xButtonClickHandler, OptionClickHandler, forDesktop, showOption, mangas }) => {
+const Autocomplete = ({ autoCompValue, setAutoCompValue, handleChange, xButtonClickHandler, forDesktop, mangas }) => {
   let searchBoxStyle = [];
   let iconWrapperStyle = [];
-  let searchInputStyle = [];
 
   if (forDesktop) {
     searchBoxStyle = {
       border: "1px solid red",
       borderRadius: "5px",
       height: "calc(var(--global-nav-height) - 15px)",
-      paddingRight: "15px",
       width: "calc(250px + 10vw)",
+      backgroundColor: "white",
     };
-
+    //    ${'' /* paddingRight: "15px", */}
     iconWrapperStyle = {
       height: "calc(var(--global-nav-height) - 15px)",
       width: "var(--global-nav-height)",
@@ -59,23 +58,35 @@ const Autocomplete = ({ handleChange, xButtonClickHandler, OptionClickHandler, f
   return (
     <>
       <SearchBox style={searchBoxStyle}>
-        <IconWrapper className="search-icon-wrapper" style={iconWrapperStyle}>
+        <IconWrapper className="search-icon-wrapper c-width" style={iconWrapperStyle}>
           <SearchIcon height="20" />
         </IconWrapper>
-        <SearchInput onChange={handleChange} style={searchInputStyle} type={forDesktop ? "search" : ""} />
+        <SearchInput value={autoCompValue} onChange={handleChange} />
+        {autoCompValue !== "" && (
+          <button
+            className="search-button noSelect"
+            style={{ paddingLeft: "5px", paddingRight: "13px" }}
+            onClick={() => setAutoCompValue("")}
+          >
+            <XIcon height="10" />
+          </button>
+        )}
         {!forDesktop && (
-          <IconWrapper className="search-icon-wrapper">
+          <IconWrapper className="search-icon-wrapper c-width matted">
             <button className="search-button noSelect" onClick={xButtonClickHandler}>
-              <XIcon height="15" />
+              <BackArrowIcon height="18" />
             </button>
           </IconWrapper>
         )}
       </SearchBox>
 
-      {showOption && (
-        <div className={forDesktop ? "option-desktop-wrapper" : "option-mobile-wrapper"}>
-          <Option mangas={mangas} OptionClickHandler={OptionClickHandler} />
-        </div>
+      {autoCompValue != "" && (
+        <Option
+          autoCompValue={autoCompValue}
+          setAutoCompValue={setAutoCompValue}
+          forDesktop={forDesktop}
+          mangas={mangas}
+        />
       )}
     </>
   );
