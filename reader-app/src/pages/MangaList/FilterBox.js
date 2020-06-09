@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { XIcon } from "#src/components/Icon";
+import { Button, ButtonIcon } from "#src/components/Button";
 
 const FilterWrapper = styled.div`
   background-color: white;
@@ -60,39 +61,6 @@ const FilterButtonWrapperRow = styled.div`
   justify-content: center;
 `;
 
-const FilterButton = styled.div`
-  background-color: red;
-  color: white;
-  line-height: 1.5rem;
-  font-size: 0.9rem;
-  border-radius: calc(4px + 0.1vw);
-  padding: calc(4px + 0.1vw) calc(6px + 0.1vw);
-  cursor: pointer;
-  margin: calc(2px + 0.1vw) calc(2px + 0.1vw);
-  border: none;
-
-  :hover {
-    background-color: #b32525;
-  }
-`;
-
-const XButton = styled.button`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 25px;
-  width: 25px;
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  box-sizing: border-box;
-
-  :focus {
-    outline: none;
-  }
-`;
-
 const XButtonWrapper = styled.div`
   float: right;
 `;
@@ -125,7 +93,6 @@ const FilterBox = ({
     setShowFilterBox(false);
 
     if (categoriesInit.length == 0) setCategoriesInit(categories);
-    console.log(categoriesInit);
   };
 
   const resetClickHandler = () => {
@@ -154,14 +121,13 @@ const FilterBox = ({
   const xButtonClickHandler = () => {
     setShowFilterBox(false);
   };
-
   return (
     <FilterWrapper>
       <FilterSubWrapper>
         <XButtonWrapper>
-          <XButton className="noSelect" onClick={xButtonClickHandler}>
+          <ButtonIcon className="noSelect" onClick={xButtonClickHandler}>
             <XIcon height="15" />
-          </XButton>
+          </ButtonIcon>
         </XButtonWrapper>
         <FilterTitle>Status</FilterTitle>
         <FilterWrapperRow>
@@ -197,8 +163,8 @@ const FilterBox = ({
             ))}
         </FilterWrapperRow>
         <FilterButtonWrapperRow>
-          <FilterButton onClick={() => applyClickHandler()}>Apply</FilterButton>
-          <FilterButton onClick={() => resetClickHandler()}>Reset</FilterButton>
+          <Button onClick={() => applyClickHandler()}>Apply</Button>
+          <Button onClick={() => resetClickHandler()}>Reset</Button>
         </FilterButtonWrapperRow>
       </FilterSubWrapper>
     </FilterWrapper>

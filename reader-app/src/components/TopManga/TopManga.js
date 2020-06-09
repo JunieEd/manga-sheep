@@ -2,7 +2,7 @@ import React from "react";
 import gql from "graphql-tag";
 import { useQuery } from "@apollo/react-hooks";
 
-import MangaGrid from "#src/components/MangaGrid";
+import { TopMangaGrid } from "#src/components/MangaGrid";
 
 const NUMBER_OF_TOP_MANGA = 10;
 
@@ -22,15 +22,7 @@ const PopularMangaUpdates = () => {
     variables: { topManga: true, first: NUMBER_OF_TOP_MANGA },
   });
 
-  return (
-    <MangaGrid
-      noOfMangas={NUMBER_OF_TOP_MANGA}
-      loading={loading}
-      mangas={!loading && data && data.mangas}
-      variant="vertical"
-      isRanked={true}
-    />
-  );
+  return <TopMangaGrid loading={loading} mangas={!loading && data && data.mangas} />;
 };
 
 export default PopularMangaUpdates;

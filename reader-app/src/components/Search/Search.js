@@ -29,7 +29,8 @@ const query = gql`
   }
 `;
 
-const SearchInitial = ({ autoCompValue, setAutoCompValue }) => {
+const Search = () => {
+  const [autoCompValue, setAutoCompValue] = useState("");
   const [showSearchBox, setShowSearchBox] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const { data, loading } = useQuery(query, {
@@ -116,4 +117,4 @@ const SearchInitial = ({ autoCompValue, setAutoCompValue }) => {
   );
 };
 
-export default SearchInitial;
+export default Search;

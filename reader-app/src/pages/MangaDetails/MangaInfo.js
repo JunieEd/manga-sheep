@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import gql from "graphql-tag";
 import { useQuery } from "@apollo/react-hooks";
-import html_entity_decode from "locutus/php/strings/html_entity_decode";
 
 import styled from "styled-components";
 
@@ -10,6 +9,7 @@ import { Title } from "#src/components/Column";
 import Image from "#src/components/Image";
 import ReadMore from "./ReadMore";
 import List from "./List";
+import { ButtonBookmark } from "#src/components/Button";
 
 const query = gql`
   query($mangaId: ID!) {
@@ -102,6 +102,29 @@ const MangaTitle = styled(Title)`
   font-family: "Roboto" !important;
 `;
 
+const ButtonBookmarkStyled = styled(ButtonBookmark)`
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  font-size: 0.5rem;
+  z-index: 2;
+`;
+
+const DarkGradient = styled.div`
+  background-image: linear-gradient(to top, rgba(255, 0, 0, 0), #0000009e);
+  height: calc(30px + 1vw);
+  width: 100%;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  border-radius: calc(3px + 0.1vw) calc(3px + 0.1vw);
+  z-index: 1;
+`;
+
+const ImageSubContainer = styled.div`
+  position: relative;
+`;
+
 const MangaInfo = ({ mangaId, mangaName }) => {
   const { data, loading } = useQuery(query, {
     variables: { mangaId },
@@ -111,10 +134,14 @@ const MangaInfo = ({ mangaId, mangaName }) => {
     !loading &&
     data && (
       <>
-        <MangaTitle text={mangaName} route="" />
+        <MangaTitle text={data.manga.title} route="" />
         <BasicInfoWrapper>
           <ImageContainer>
-            <Image src={data.manga.image} />
+            <ImageSubContainer>
+              <ButtonBookmarkStyled manga={data.manga} />
+              <DarkGradient />
+              <Image src={data.manga.image} />
+            </ImageSubContainer>
           </ImageContainer>
           <InfoWrapper>
             <InfoRow>

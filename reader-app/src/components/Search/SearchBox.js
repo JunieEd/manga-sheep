@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { SearchIcon, XIcon, BackArrowIcon } from "#src/components/Icon";
 import Option from "./Option";
+import OutsideClickAlerter from "./OutsideClickAlerter";
+import { useSelector, useDispatch } from "react-redux";
+import { searchOptionShow, searchOptionHide } from "#src/redux/Action";
 
 const SearchBox = styled.div`
   display: flex;
@@ -13,7 +16,6 @@ const SearchBox = styled.div`
     border-size: 2px;
   }
 `;
-
 const SearchInput = styled.input.attrs({ placeholder: "Search Manga" })`
   border: none;
   font-size: 1rem;
@@ -22,23 +24,18 @@ const SearchInput = styled.input.attrs({ placeholder: "Search Manga" })`
   outline: none;
   background-color: white;
 
-  ::-webkit-search-cancel-button {
-    color: red;
-    background-color: red;
-  }
-
   @media only screen and (min-width: 576px) {
     line-height: 1.5;
   }
 `;
 
-const IconWrapper = styled.div`
-  @media only screen and (min-width: 10px);
-`;
+const IconWrapper = styled.div``;
 
 const Autocomplete = ({ autoCompValue, setAutoCompValue, handleChange, xButtonClickHandler, forDesktop, mangas }) => {
   let searchBoxStyle = [];
   let iconWrapperStyle = [];
+  const dispatch = useDispatch();
+  const searchOption = useSelector((state) => state.searchOption);
 
   if (forDesktop) {
     searchBoxStyle = {
@@ -55,13 +52,23 @@ const Autocomplete = ({ autoCompValue, setAutoCompValue, handleChange, xButtonCl
     };
   }
 
+  const handleFocus = () => {
+    dispatch(searchOptionShow());
+    console.log("focus", searchOption);
+  };
+
+  const handleClickOutside = () => {
+    dispatch(searchOptionHide());
+    console.log("clicked");
+  };
+
   return (
-    <>
+    <OutsideClickAlerter handleClick={handleClickOutside}>
       <SearchBox style={searchBoxStyle}>
         <IconWrapper className="search-icon-wrapper c-width" style={iconWrapperStyle}>
           <SearchIcon height="20" />
         </IconWrapper>
-        <SearchInput value={autoCompValue} onChange={handleChange} />
+        <SearchInput value={autoCompValue} onChange={handleChange} onFocus={() => handleFocus()} />
         {autoCompValue !== "" && (
           <button
             className="search-button noSelect"
@@ -80,15 +87,10 @@ const Autocomplete = ({ autoCompValue, setAutoCompValue, handleChange, xButtonCl
         )}
       </SearchBox>
 
-      {autoCompValue != "" && (
-        <Option
-          autoCompValue={autoCompValue}
-          setAutoCompValue={setAutoCompValue}
-          forDesktop={forDesktop}
-          mangas={mangas}
-        />
+      {searchOption.show && autoCompValue != "" && (
+        <Option setAutoCompValue={setAutoCompValue} forDesktop={forDesktop} mangas={mangas} />
       )}
-    </>
+    </OutsideClickAlerter>
   );
 };
 

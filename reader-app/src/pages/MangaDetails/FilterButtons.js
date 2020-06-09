@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import _ from "lodash";
+import { Button } from "#src/components/Button";
 
 const SEPARATOR = " - ";
 const CHAPTER_PER_PAGE = 100;
@@ -11,16 +12,8 @@ const FilterButtonWrapper = styled.div`
   margin-bottom: calc(10px + 0.1vw);
 `;
 
-const FilterButton = styled.div`
+const ButtonStyled = styled(Button)`
   background-color: #b9b9b9;
-  color: white;
-  line-height: 1.5rem;
-  font-size: 0.9rem;
-  border-radius: calc(4px + 0.1vw);
-  padding: calc(4px + 0.1vw) calc(6px + 0.1vw);
-  cursor: pointer;
-  margin: calc(2px + 0.1vw) calc(2px + 0.1vw);
-  border: none;
 
   :hover {
     background-color: red;
@@ -68,26 +61,26 @@ const FilterButtons = ({
 
   return (
     <FilterButtonWrapper>
-      <FilterButton onClick={() => sortAscDesc()} style={{ backgroundColor: "var(--global-black-color)" }}>
+      <Button onClick={() => sortAscDesc()} style={{ backgroundColor: "var(--global-black-color)" }}>
         {isAsc ? <>&#8595;</> : <>&#8593;</>}
-      </FilterButton>
+      </Button>
 
       {chapters.length >= CHAPTER_PER_PAGE && (
         <>
-          <FilterButton
+          <ButtonStyled
             className={`effect-bgc ${selectedFilter == allChapter ? "list-filter-selected" : ""}`}
             onClick={(e) => filterButtonClick(e, true)}
           >
             {allChapter}
-          </FilterButton>
+          </ButtonStyled>
           {chapterNumberFilter.map((filter, index) => (
-            <FilterButton
+            <ButtonStyled
               className={`effect-bgc ${selectedFilter == filter ? "list-filter-selected" : ""}`}
               key={index}
               onClick={(e) => filterButtonClick(e, false)}
             >
               {filter}
-            </FilterButton>
+            </ButtonStyled>
           ))}
         </>
       )}

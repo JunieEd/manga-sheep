@@ -1,5 +1,4 @@
 import React from "react";
-import styled from "styled-components";
 
 import Ads from "#src/components/Ads";
 import TopManga from "#src/components/TopManga";

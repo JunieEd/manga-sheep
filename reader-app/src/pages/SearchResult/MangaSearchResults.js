@@ -3,7 +3,7 @@ import gql from "graphql-tag";
 import { useQuery } from "@apollo/react-hooks";
 import styled from "styled-components";
 
-import MangaGrid from "#src/components/MangaGrid";
+import { MangaGrid } from "#src/components/MangaGrid";
 
 const NO_TO_SHOW = 15;
 

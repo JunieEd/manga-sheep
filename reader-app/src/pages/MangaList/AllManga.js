@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { useTransition, animated } from "react-spring";
 
-import MangaGrid from "#src/components/MangaGrid";
+import { Button } from "#src/components/Button";
+import { MangaGrid } from "#src/components/MangaGrid";
 import FilterBox from "./FilterBox";
 
 import "./style.css";
@@ -23,22 +24,6 @@ const SortFilterWrapper = styled.div`
   display: flex;
   align-items: center;
   align-content: center;
-`;
-
-const FilterButton = styled.div`
-  background-color: red;
-  color: white;
-  line-height: 1.5rem;
-  font-size: 0.9rem;
-  border-radius: calc(4px + 0.1vw);
-  padding: calc(4px + 0.1vw) calc(6px + 0.1vw);
-  cursor: pointer;
-  margin: calc(2px + 0.1vw) calc(2px + 0.1vw);
-  border: none;
-
-  :hover {
-    background-color: #b32525;
-  }
 `;
 
 const SortTypeFilter = styled.select`
@@ -104,11 +89,11 @@ const AllManga = ({ loading, mangas, filters, setFilters }) => {
 
   return (
     <>
-      <MangaCount>{loading ? "Loading" : mangas.length} Manga results</MangaCount>
+      <MangaCount>{loading ? "Loading" : mangas.length} manga results</MangaCount>
       <FilterRow>
-        <FilterButton className={showFilterBox ? "button-show-filter" : ""} onClick={() => showFilterClickHandler()}>
+        <Button className={showFilterBox ? "button-show-filter" : ""} onClick={() => showFilterClickHandler()}>
           Show Filter
-        </FilterButton>
+        </Button>
         <SortFilterWrapper>
           <SortBySpan>Sort by</SortBySpan>
 
@@ -118,9 +103,9 @@ const AllManga = ({ loading, mangas, filters, setFilters }) => {
             <option value={sortByType.LatestUpdate}>{sortByType.LatestUpdate}</option>
           </SortTypeFilter>
 
-          <FilterButton onClick={() => sortAscDesc()} style={{ backgroundColor: "var(--global-black-color)" }}>
+          <Button onClick={() => sortAscDesc()} style={{ backgroundColor: "var(--global-black-color)" }}>
             {isAsc ? /*arrow up*/ <>&#8593;</> : /*arrow down*/ <>&#8595;</>}
-          </FilterButton>
+          </Button>
         </SortFilterWrapper>
       </FilterRow>
 

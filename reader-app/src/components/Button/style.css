@@ -1,0 +1,25 @@
+.button-c {
+    background-color: red;
+    color: white;
+    line-height: 1.5rem;
+    font-size: 0.9rem;
+    border-radius: calc(4px + 0.1vw);
+    padding: calc(4px + 0.1vw) calc(12px + 0.1vw);
+    cursor: pointer;
+    margin: calc(2px + 0.1vw) calc(2px + 0.1vw);
+    border: none;
+
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.button-c:hover {
+    background-color: #b32525;
+}
+
+.button-c:keydown {
+    outline-color: black;
+    outline-width: 4px;
+}

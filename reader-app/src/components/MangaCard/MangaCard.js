@@ -4,7 +4,7 @@ import styled from "styled-components";
 
 import { Chip2 } from "#src/components/chip";
 import Image from "#src/components/Image";
-import BookmarkButton from "#src/components/BookmarkButton";
+import { ButtonBookmark } from "#src/components/Button";
 
 const STATUS_COLOR = {
   Completed: "green",
@@ -66,7 +66,7 @@ const TitleWrapper = styled.div`
   }
 `;
 
-const BookmarkButtonStyled = styled(BookmarkButton)`
+const ButtonBookmarkStyled = styled(ButtonBookmark)`
   position: absolute;
   top: 2px;
   right: 2px;
@@ -79,7 +79,7 @@ const SubWrapper = styled.div`
 `;
 const DarkGradient = styled.div`
   background-image: linear-gradient(to top, rgba(255, 0, 0, 0), #0000009e);
-  height: calc(50px + 1vw);
+  height: calc(30px + 1vw);
   width: 100%;
   position: absolute;
   top: 0px;
@@ -103,7 +103,7 @@ const MangaCard = ({ className, manga }) => {
     <Wrapper className={className + " effect-bgc"}>
       <SubWrapper>
         <ChipC color={STATUS_COLOR[manga.status]} text={manga.status} />
-        <BookmarkButtonStyled manga={manga} />
+        <ButtonBookmarkStyled manga={manga} />
         <Link to={`/${manga.id}-${sanitizeTitle(manga.title)}`}>
           <div style={{ position: "relative" }}>
             <Image src={imageSrc} />

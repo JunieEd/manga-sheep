@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 import Image from "#src/components/Image";
-import BookmarkButton from "#src/components/BookmarkButton";
+import { ButtonBookmark } from "#src/components/Button";
 
 const Wrapper = styled.div`
   display: flex;
@@ -20,6 +20,7 @@ const Wrapper = styled.div`
 const ImageContainerx = styled.div`
   width: 100px;
   float: left;
+  position: relative;
 `;
 
 const MangaInfoContainer = styled.div`
@@ -75,6 +76,24 @@ const SubInfoWrapper = styled.div`
   }
 `;
 
+const ButtonBookmarkStyled = styled(ButtonBookmark)`
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  font-size: 0.5rem;
+  z-index: 1;
+`;
+
+const DarkGradient = styled.div`
+  background-image: linear-gradient(to top, rgba(255, 0, 0, 0), #0000009e);
+  height: calc(25px + 1vw);
+  width: 100%;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  border-radius: calc(3px + 0.1vw) calc(3px + 0.1vw);
+`;
+
 const MangaCardSmall = ({ className, manga, top = "1" }) => {
   const sanitiseTitle = (title) =>
     title
@@ -90,16 +109,18 @@ const MangaCardSmall = ({ className, manga, top = "1" }) => {
   return (
     <Wrapper className={className + " effect-bgc"}>
       {top && top != "" && <Badge>{top}</Badge>}
+
       <ImageContainerx>
+        <ButtonBookmarkStyled manga={manga} />
         <Link to={`/${manga.id}-${sanitiseTitle(manga.title)}`}>
           <Image referrerPolicy="no-referrer" src={imageSrc} />
+          <DarkGradient />
         </Link>
       </ImageContainerx>
 
       <MangaInfoContainer>
         <TitleWrapper>
           <Link to={`/${manga.id}-${sanitiseTitle(manga.title)}`}>{manga.title ? manga.title : "-"}</Link>
-          <BookmarkButton manga={manga} />
         </TitleWrapper>
         <SubInfoWrapper>
           <span>{manga.status}</span>

@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import gql from "graphql-tag";
 import { useQuery } from "@apollo/react-hooks";
-import styled from "styled-components";
 
 import Ads from "#src/components/Ads/Ads";
 import AllMangas from "./AllManga";

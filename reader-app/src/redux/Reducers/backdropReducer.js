@@ -1,7 +1,7 @@
 import { BACKDROP_SHOW, BACKDROP_HIDE } from "#src/constants";
 
 const initialState = {
-  backdropShow: false,
+  show: false,
   isSearchBackdrop: false,
 };
 

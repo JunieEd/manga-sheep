@@ -8,7 +8,6 @@ const SearchResult = ({ location }) => {
   const urlParams = new URLSearchParams(location.search);
   const searchQuery = decodeURI(urlParams.get("q"));
 
-  console.log(searchQuery);
   return (
     <div className="container">
       <div className="row">

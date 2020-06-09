@@ -1,9 +1,10 @@
-import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
+import React from "react";
+import { Link, useHistory } from "react-router-dom";
 import styled from "styled-components";
 import { Chip } from "#src/components/Chip";
-import BookmarkButton from "#src/components/BookmarkButton";
+import { ButtonBookmark } from "#src/components/Button";
 import { useDispatch } from "react-redux";
+import { searchOptionHide } from "#src/redux/Action";
 
 import "./style.css";
 
@@ -94,22 +95,10 @@ const StarContainer = styled.div`
   cursor: pointer;
 `;
 
-const Option = ({ forDesktop, autoCompValue, setAutoCompValue, mangas }) => {
+const Option = ({ forDesktop, setAutoCompValue, mangas }) => {
   const dispatch = useDispatch();
+  const history = useHistory();
   let hasResult = false;
-
-  // const handleClick = () => {
-  //   setAutoCompValue("");
-  // };
-
-  useEffect(() => {
-    // if (forDesktop) {
-    //   document.addEventListener("mouseclick", handleClick);
-    //   return () => {
-    //     document.removeEventListener("mouseclick", handleClick);
-    //   };
-    // }
-  }, []);
 
   if (!mangas) {
     return null;
@@ -118,13 +107,16 @@ const Option = ({ forDesktop, autoCompValue, setAutoCompValue, mangas }) => {
   }
 
   const optionClickHandler = (id, title) => {
-    window.location = `/${id}-${sanitiseTitle(title)}`;
+    setAutoCompValue(title);
+    history.push(`/${id}-${sanitiseTitle(title)}`);
+    dispatch(searchOptionHide());
   };
 
   const optionAllSearchResultClickHandler = (e) => {
     e.preventDefault();
-    if (hasResult) window.location = `/search?q=${encodeURI(autoCompValue)}`;
-    else window.location = `/mangalist`;
+    if (hasResult) history.push(`/search?q=${encodeURI(autoCompValue)}`);
+    else history.push(`/mangalist`);
+    dispatch(searchOptionHide());
   };
 
   const optionItems = mangas.map((manga) => (
@@ -136,7 +128,7 @@ const Option = ({ forDesktop, autoCompValue, setAutoCompValue, mangas }) => {
       </OptionSubListItem>
       <StarContainer>
         {/* <StarIcon hasFill={false} height="20" /> */}
-        <BookmarkButton manga={manga} />
+        <ButtonBookmark manga={manga} />
       </StarContainer>
     </OptionListItem>
   ));

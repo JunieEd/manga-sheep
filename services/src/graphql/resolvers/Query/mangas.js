@@ -7,15 +7,6 @@ const MANGA_STATUS = {
   Completed: 2,
 };
 
-// const convertId = (ids) => {
-//   let convertedIds = [];
-//   for (let i = 0; i < ids.length; i++) {
-//     convertedIds.push(mongoose.Types.ObjectId(ids[i]));
-//   }
-//   console.log("converted2", convertedIds);
-//   return convertedIds;
-// };
-
 const mangasResolver = (context, args) => {
   if (args.searchTitle) {
     return Manga.find({

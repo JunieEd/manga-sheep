@@ -59,7 +59,7 @@ const NavStyled = styled(Nav)`
 
 const MangaChapter = ({
   match: {
-    params: { mangaId, chapterId },
+    params: { mangaId, mangaName, chapterId },
   },
 }) => {
   const { data, loading } = useQuery(query, {
@@ -69,18 +69,22 @@ const MangaChapter = ({
   if (loading) return <div>Loading</div>;
 
   return (
-    <Wrapper>
-      <NavStyled mangaId={mangaId} chapterId={chapterId} />
-      <ChapterImageWrapper>
-        {[...data.chapter.images].reverse().map((image, index) => (
-          <LazyLoad key={index} height={1000} resize={false}>
-            <img referrerPolicy="no-referrer" src={image.url} />
-          </LazyLoad>
-        ))}
-      </ChapterImageWrapper>
-      <NavStyled mangaId={mangaId} chapterId={chapterId} />
-      <Ads />
-    </Wrapper>
+    <>
+      <Wrapper>
+        <NavStyled mangaId={mangaId} mangaName={mangaName} chapterId={chapterId} />
+        <ChapterImageWrapper>
+          {[...data.chapter.images].reverse().map((image, index) => (
+            <LazyLoad key={index} height={1000} resize={false}>
+              <img referrerPolicy="no-referrer" src={image.url} />
+            </LazyLoad>
+          ))}
+        </ChapterImageWrapper>
+        <NavStyled mangaId={mangaId} chapterId={chapterId} />
+      </Wrapper>
+      <div className="container">
+        <Ads />
+      </div>
+    </>
   );
 };
 

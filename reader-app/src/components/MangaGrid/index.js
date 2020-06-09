@@ -1,3 +1,4 @@
 import MangaGrid from "./MangaGrid";
+import TopMangaGrid from "./TopMangaGrid";
 
-export default MangaGrid;
+export { MangaGrid, TopMangaGrid };

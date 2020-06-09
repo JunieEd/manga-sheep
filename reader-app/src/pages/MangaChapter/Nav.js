@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
 import { useQuery } from "@apollo/react-hooks";
+import { useHistory } from "react-router-dom";
 import gql from "graphql-tag";
 import styled from "styled-components";
 import * as R from "ramda";
 
+import { ButtonLink } from "#src/components/Button";
 import "./style.css";
 
 const query = gql`
@@ -31,22 +32,6 @@ const NavWrapper = styled.div`
   align-items: center;
 `;
 
-const Button = styled(Link)`
-  background-color: red;
-  color: white;
-  line-height: 1.5rem;
-  font-size: 0.9rem;
-  border-radius: calc(4px + 0.1vw);
-  padding: calc(4px + 0.1vw) calc(10px + 0.1vw);
-  cursor: pointer;
-  margin: calc(2px + 0.1vw) calc(2px + 0.1vw);
-  border: none;
-
-  :hover {
-    background-color: #b32525;
-  }
-`;
-
 const Select = styled.select`
   border: none;
   padding: calc(8px + 0.1vw) 30px calc(8px + 0.1vw) 18px;
@@ -64,19 +49,16 @@ const SelectLabel = styled.label`
   position: relative;
 `;
 
-const Nav = ({ className, mangaId, chapterId }) => {
+const Nav = ({ className, mangaId, mangaName, chapterId }) => {
   const { data, loading } = useQuery(query, {
     variables: { mangaId },
   });
+  const history = useHistory();
 
   if (loading) return <div>Loading...</div>;
   if (!chapterId) return null;
 
-  const buildChapterLink = (mangaName, chapterId) => `/${mangaId}-${mangaName}/${chapterId}`;
-
-  const chapterChange = (e) => {
-    window.location = buildChapterLink(data.manga.title, e.target.value);
-  };
+  const buildChapterLink = (chapterId) => `/${mangaId}-${mangaName}/${chapterId}`;
 
   const getChapterUrl = () => {
     const isCurrentChapter = R.propEq("id", `${chapterId}`);
@@ -85,21 +67,22 @@ const Nav = ({ className, mangaId, chapterId }) => {
     const prev = data.manga.info.chapters[currentChapterIndex + 1];
 
     return {
-      prev: buildChapterLink(data.manga.title, prev ? prev.id : ""),
-      next: buildChapterLink(data.manga.title, next ? next.id : ""),
+      prev: buildChapterLink(prev ? prev.id : ""),
+      next: buildChapterLink(next ? next.id : ""),
+      nextId: next ? next.id : "",
     };
   };
 
   return (
     <NavWrapper className={className}>
       {!loading && data.manga && (
-        <Button className="prev" to={() => getChapterUrl().prev}>
+        <ButtonLink className="prev" to={() => getChapterUrl().prev}>
           Prev
-        </Button>
+        </ButtonLink>
       )}
       <div>
         <SelectLabel htmlFor="chapter">
-          <Select id="chapter" onChange={(e) => chapterChange(e)} value={chapterId}>
+          <Select id="chapter" onChange={(e) => history(buildChapterLink(e.target.value))} value={chapterId}>
             {!loading &&
               data.manga &&
               data.manga.info.chapters.map((chapter, index) => (
@@ -111,9 +94,9 @@ const Nav = ({ className, mangaId, chapterId }) => {
         </SelectLabel>
       </div>
       {!loading && data.manga && (
-        <Button className="next" to={() => getChapterUrl().next}>
-          Next
-        </Button>
+        <ButtonLink className="next" to={() => getChapterUrl().next}>
+          {getChapterUrl().nextId == "" ? "End" : "Next"}
+        </ButtonLink>
       )}
     </NavWrapper>
   );

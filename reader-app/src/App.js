@@ -7,7 +7,7 @@ import "./App.css";
 import Backdrop from "#src/components/Backdrop";
 import SideDrawer from "#src/components/SideDrawer";
 import Toolbar from "#src/components/Toolbar";
-import ScrollTop from "#src/components/ScrollTop";
+import { ScrollToTop, ScrollToTopButton } from "#src/components/ScrollToTop";
 
 import Default from "#src/pages/Default/Default";
 import Home from "#src/pages/Home";
@@ -37,6 +37,7 @@ const App = () => {
   return (
     <BreakpointProvider>
       <AppContainer>
+        <ScrollToTop />
         <Toolbar />
         <SideDrawer />
         <Backdrop />
@@ -55,7 +56,7 @@ const App = () => {
             <Route component={Default} />
           </Switch>
         </Main>
-        <ScrollTop />
+        <ScrollToTopButton />
       </AppContainer>
     </BreakpointProvider>
   );

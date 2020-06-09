@@ -1,4 +1,24 @@
-import { BACKDROP_SHOW, BACKDROP_HIDE, MENU_DRAWER_SHOW, MENU_DRAWER_HIDE, SET_MANGAS } from "#src/constants";
+import {
+  SEARCH_OPTION_SHOW,
+  SEARCH_OPTION_HIDE,
+  BACKDROP_SHOW,
+  BACKDROP_HIDE,
+  MENU_DRAWER_SHOW,
+  MENU_DRAWER_HIDE,
+  SET_MANGAS,
+} from "#src/constants";
+
+export const searchOptionShow = () => {
+  return {
+    type: SEARCH_OPTION_SHOW,
+  };
+};
+
+export const searchOptionHide = () => {
+  return {
+    type: SEARCH_OPTION_HIDE,
+  };
+};
 
 export const backdropShow = (isFromSearch = false) => {
   return {

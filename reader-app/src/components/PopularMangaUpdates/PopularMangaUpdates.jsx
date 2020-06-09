@@ -1,7 +1,7 @@
 import React from "react";
 import gql from "graphql-tag";
 import { useQuery } from "@apollo/react-hooks";
-import MangaGrid from "#src/components/MangaGrid";
+import { MangaGrid } from "#src/components/MangaGrid";
 import { getUnixTime, subHours } from "date-fns";
 
 const NUMBER_OF_TOP_UPDATES = 6;

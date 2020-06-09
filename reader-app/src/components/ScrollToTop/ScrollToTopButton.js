@@ -16,7 +16,7 @@ const DivStyled = styled.div`
 
 var scroll = Scroll.animateScroll;
 
-const ScrollTop = () => {
+const ScrollToTopButton = () => {
   const [hideOnTop, setHideOnTop] = useState(true);
 
   useScrollPosition(
@@ -42,4 +42,4 @@ const ScrollTop = () => {
   );
 };
 
-export default ScrollTop;
+export default ScrollToTopButton;

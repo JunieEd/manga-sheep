@@ -32,9 +32,6 @@ const StyledMangaCardVertical = styled(MangaCardV2)`
   @media only screen and (min-width: 400px) {
     width: 50%;
   }
-  @media only screen and (min-width: 1025px) {
-    width: 100%;
-  }
 `;
 
 const PHStyledMangaCardVertical = styled(PHMangaCardV2)`
@@ -42,9 +39,6 @@ const PHStyledMangaCardVertical = styled(PHMangaCardV2)`
 
   @media only screen and (min-width: 400px) {
     width: 50%;
-  }
-  @media only screen and (min-width: 1025px) {
-    width: 100%;
   }
 `;
 
@@ -107,7 +101,6 @@ const MangaGrid = ({
       ? noOfMangas
       : mangaPage;
 
-    console.log(mangaPage, fixMangaPage);
     setMangaShowSize(fixMangaPage);
     setIsShowMore(fixMangaPage < mangas.length);
   };

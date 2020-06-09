@@ -8,7 +8,7 @@ const Wrapper = styled.div`
   cursor: pointer;
 `;
 
-const BookmarkButton = ({ className, manga, height = "20" }) => {
+const ButtonBookmark = ({ className, manga, height = "20" }) => {
   const { unBookmarkedManga, bookmarkManga, isMangaBookMarked } = useContext(BookmarkedMangaContext);
 
   const isBookmarked = isMangaBookMarked(manga.id);
@@ -17,7 +17,6 @@ const BookmarkButton = ({ className, manga, height = "20" }) => {
     <Wrapper
       className={className}
       onClick={(e) => {
-        console.log("bookmark clicked");
         e.stopPropagation();
         R.ifElse(isMangaBookMarked, unBookmarkedManga, bookmarkManga)(manga.id);
       }}
@@ -27,4 +26,4 @@ const BookmarkButton = ({ className, manga, height = "20" }) => {
   );
 };
 
-export default BookmarkButton;
+export default ButtonBookmark;

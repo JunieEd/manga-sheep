@@ -1,7 +1,8 @@
 import React, { useState, useRef, useEffect, useCallback } from "react";
 import { useScrollPosition } from "@n8tb1t/use-scroll-position";
 import styled from "styled-components";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { searchOptionHide } from "#src/redux/Action";
 import { Breakpoint, useCurrentWidth, useCurrentBreakpointName } from "react-socks";
 
 import HamburgerMenu from "./HamburgerMenu";
@@ -22,26 +23,26 @@ const ToolbarHeader = styled.header`
   transition: top 0.6s;
 `;
 
-const MenuNav = styled.nav`
+const MenuNav = styled.nav``;
+
+const ToolbarWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   height: cal(var(--global-nav-height));
+  ${"padding: 0;" /* override container class padding properties */}
 `;
 
 const Toolbar = () => {
-  const [autoCompValue, setAutoCompValue] = useState("");
   const [hideOnScroll, setHideOnScroll] = useState(true);
   const backdrop = useSelector((state) => state.backdrop);
-  const breakpoint = useCurrentBreakpointName();
+  const dispatch = useDispatch();
 
   useScrollPosition(
     ({ prevPos, currPos }) => {
       const isShow = currPos.y > prevPos.y;
       if (isShow !== hideOnScroll) {
-        //if (breakpoint == "tablet") {
         setHideOnScroll(isShow);
-        setAutoCompValue("");
-        // }
+        dispatch(searchOptionHide());
       }
     },
     [hideOnScroll]
@@ -55,14 +56,16 @@ const Toolbar = () => {
   return (
     <ToolbarHeader className="matted" style={headerCustomStyle}>
       <MenuNav>
-        <Breakpoint mobile only>
-          <HamburgerMenu />
-        </Breakpoint>
-        <Logo />
-        <Breakpoint smallMobile up style={{ flex: "1" }}>
-          <MenuList />
-        </Breakpoint>
-        <Search autoCompValue={autoCompValue} setAutoCompValue={setAutoCompValue} />
+        <ToolbarWrapper className="container">
+          <Breakpoint mobile only>
+            <HamburgerMenu />
+          </Breakpoint>
+          <Logo />
+          <Breakpoint smallMobile up style={{ flex: "1" }}>
+            <MenuList />
+          </Breakpoint>
+          <Search />
+        </ToolbarWrapper>
       </MenuNav>
     </ToolbarHeader>
   );

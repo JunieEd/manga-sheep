@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import Ads from "#src/components/Ads/Ads";
 import AllUpdates from "#src/components/AllUpdates/AllUpdates";
