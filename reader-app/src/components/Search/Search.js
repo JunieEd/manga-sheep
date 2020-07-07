@@ -61,9 +61,8 @@ const Search = () => {
     dispatch(backdropShow(true));
   };
 
-  const xButtonClickHandler = () => {
+  const backButtonClickHandler = () => {
     setShowSearchBox(false);
-    setAutoCompValue("");
 
     dispatch(backdropHide());
   };
@@ -88,10 +87,9 @@ const Search = () => {
             item && (
               <animated.div key={key} style={props} className="search-mobile-wrapper-sliding">
                 <SearchBox
-                  showSearchBox={showSearchBox}
                   autoCompValue={autoCompValue}
                   setAutoCompValue={setAutoCompValue}
-                  xButtonClickHandler={xButtonClickHandler}
+                  backButtonClickHandler={backButtonClickHandler}
                   handleChange={handleChange}
                   forDesktop={false}
                   mangas={!loading && data && data.mangas}

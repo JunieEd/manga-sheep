@@ -5,13 +5,16 @@ import gql from "graphql-tag";
 import styled from "styled-components";
 import * as R from "ramda";
 
+import { Loader } from "#src/components/Others";
 import { ButtonLink } from "#src/components/Button";
+import { Breadcrumb_Custom as Breadcrumb } from "#src/components/Breadcrumb";
 import "./style.css";
 
 const query = gql`
   query($mangaId: ID!) {
     manga(id: $mangaId) {
       id
+      title
       info {
         chapters {
           id
@@ -49,13 +52,13 @@ const SelectLabel = styled.label`
   position: relative;
 `;
 
-const Nav = ({ className, mangaId, mangaName, chapterId }) => {
+const Nav = ({ className, mangaId, mangaName, chapterId, location }) => {
   const { data, loading } = useQuery(query, {
     variables: { mangaId },
   });
   const history = useHistory();
 
-  if (loading) return <div>Loading...</div>;
+  if (loading) return <Loader />;
   if (!chapterId) return null;
 
   const buildChapterLink = (chapterId) => `/${mangaId}-${mangaName}/${chapterId}`;
@@ -73,32 +76,50 @@ const Nav = ({ className, mangaId, mangaName, chapterId }) => {
     };
   };
 
+  const breadcrumbItems = !loading &&
+    data && [
+      { to: "/", label: "Home" },
+      { to: "/mangalist", label: "Manga List" },
+      { to: `/${location.pathname.split("/")[1]}`, label: `${data.manga.title}` },
+      {
+        to: `${location.pathname}`,
+        label: `Chapter ${data.manga.info.chapters.find(({ id }) => id === chapterId).number}`,
+      },
+    ];
+
+  console.log(location.pathname.split("/"));
+
   return (
-    <NavWrapper className={className}>
-      {!loading && data.manga && (
-        <ButtonLink className="prev" to={() => getChapterUrl().prev}>
-          Prev
-        </ButtonLink>
-      )}
-      <div>
-        <SelectLabel htmlFor="chapter">
-          <Select id="chapter" onChange={(e) => history(buildChapterLink(e.target.value))} value={chapterId}>
-            {!loading &&
-              data.manga &&
-              data.manga.info.chapters.map((chapter, index) => (
-                <option key={chapter.id} value={chapter.id}>
-                  Chapter {chapter.number}
-                </option>
-              ))}
-          </Select>
-        </SelectLabel>
+    <>
+      <div className="container">
+        <Breadcrumb items={breadcrumbItems} />
       </div>
-      {!loading && data.manga && (
-        <ButtonLink className="next" to={() => getChapterUrl().next}>
-          {getChapterUrl().nextId == "" ? "End" : "Next"}
-        </ButtonLink>
-      )}
-    </NavWrapper>
+      <NavWrapper className={className}>
+        {!loading && data.manga && (
+          <ButtonLink className="prev" to={() => getChapterUrl().prev}>
+            Prev
+          </ButtonLink>
+        )}
+        <div>
+          <SelectLabel htmlFor="chapter">
+            <Select id="chapter" onChange={(e) => history.push(buildChapterLink(e.target.value))} value={chapterId}>
+              {!loading &&
+                data.manga &&
+                data.manga.info.chapters.map((chapter, index) => (
+                  <option key={chapter.id} value={chapter.id}>
+                    Chapter {chapter.number}
+                  </option>
+                ))}
+            </Select>
+          </SelectLabel>
+        </div>
+        {!loading && data.manga && (
+          <ButtonLink className="next" to={() => getChapterUrl().next}>
+            {getChapterUrl().nextId == "" ? "End" : "Next"}
+          </ButtonLink>
+        )}
+      </NavWrapper>
+    </>
   );
 };
 

@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 import { Provider as ReduxProvider } from "react-redux";
 import { Provider as BookmarkedMangaProvider } from "#src/contexts/BookmarkedMangaContext";
+import { Provider as ReadChaptersProvider } from "#src/contexts/ReadChaptersContext";
 import store from "#src/redux/store";
 
 import graphqlClient from "#src/api/graphql";
@@ -35,14 +36,16 @@ import "./global.css";
 // };
 
 render(
-  <BookmarkedMangaProvider>
-    <ReduxProvider store={store}>
-      <ApolloProvider client={graphqlClient}>
-        <Router>
-          <App />
-        </Router>
-      </ApolloProvider>
-    </ReduxProvider>
-  </BookmarkedMangaProvider>,
+  <ReadChaptersProvider>
+    <BookmarkedMangaProvider>
+      <ReduxProvider store={store}>
+        <ApolloProvider client={graphqlClient}>
+          <Router>
+            <App />
+          </Router>
+        </ApolloProvider>
+      </ReduxProvider>
+    </BookmarkedMangaProvider>
+  </ReadChaptersProvider>,
   document.getElementById("app")
 );

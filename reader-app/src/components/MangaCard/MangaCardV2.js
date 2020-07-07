@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 import Image from "#src/components/Image";
-import { ButtonBookmark } from "#src/components/Button";
+import { ButtonBookmarkWithBG as BookmarkedButton } from "#src/components/Button";
 
 const Wrapper = styled.div`
   display: flex;
@@ -52,7 +52,7 @@ const TitleWrapper = styled.div`
   align-items: flex-start;
 
   a {
-    color: red;
+    ${"" /* color: red; */}
     font-size: 1rem;
     font-weight: 600;
     line-height: 19px;
@@ -75,15 +75,6 @@ const SubInfoWrapper = styled.div`
     font-size: 0.9rem;
   }
 `;
-
-const ButtonBookmarkStyled = styled(ButtonBookmark)`
-  position: absolute;
-  top: 2px;
-  right: 2px;
-  font-size: 0.5rem;
-  z-index: 1;
-`;
-
 const DarkGradient = styled.div`
   background-image: linear-gradient(to top, rgba(255, 0, 0, 0), #0000009e);
   height: calc(25px + 1vw);
@@ -111,7 +102,7 @@ const MangaCardSmall = ({ className, manga, top = "1" }) => {
       {top && top != "" && <Badge>{top}</Badge>}
 
       <ImageContainerx>
-        <ButtonBookmarkStyled manga={manga} />
+        <BookmarkedButton manga={manga} />
         <Link to={`/${manga.id}-${sanitiseTitle(manga.title)}`}>
           <Image referrerPolicy="no-referrer" src={imageSrc} />
           <DarkGradient />

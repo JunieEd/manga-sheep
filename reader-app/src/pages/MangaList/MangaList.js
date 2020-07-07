@@ -2,10 +2,11 @@ import React, { useState } from "react";
 import gql from "graphql-tag";
 import { useQuery } from "@apollo/react-hooks";
 
-import Ads from "#src/components/Ads/Ads";
+import Ads from "#src/components/Ads";
 import AllMangas from "./AllManga";
 import TopManga from "#src/components/TopManga";
 import { Title } from "#src/components/Column";
+import { Breadcrumb_Custom as Breadcrumb } from "#src/components/Breadcrumb";
 
 const query = gql`
   query($allManga: Boolean!, $status: String, $categories: [String], $sortByType: String, $isAsc: Boolean) {
@@ -27,7 +28,7 @@ const filterInitialState = {
   isAsc: true,
 };
 
-const MangaList = () => {
+const MangaList = ({ location }) => {
   const [filters, setFilters] = useState(filterInitialState);
   const { loading, error, data } = useQuery(query, {
     variables: {
@@ -39,13 +40,18 @@ const MangaList = () => {
     },
   });
 
+  const breadcrumbItems = [
+    { to: "/", label: "Home" },
+    { to: `${location.pathname}`, label: "Manga List" },
+  ];
+
   return (
     <div className="container">
+      <Breadcrumb items={breadcrumbItems} />
       <div className="row">
         <div className="col col-1">
           <Ads />
           <Title text="ALL MANGAS" route="" />
-
           <AllMangas
             loading={loading}
             mangas={!loading && data && data.mangas}

@@ -44,15 +44,15 @@ const App = () => {
         <Main className="matted">
           <Switch>
             <Route
+              path="/:mangaId([a-z0-9]{24})-:mangaName([a-z0-9-]+)/:chapterId([a-z0-9]{24})-:chapterNumber(chapter-[0-9-]+)"
               component={MangaChapter}
-              path="/:mangaId([a-z0-9]{24})-:mangaName([a-z0-9-]+)/:chapterId([a-z0-9]{24})"
             />
+            <Route path="/:mangaId([a-z0-9]{24})-:mangaName([a-z0-9-]+)" component={MangaDetails} />
             <Route exact path="/" component={Home} />
             <Route path="/home" component={Home} />
-            <Route path="/:mangaId([a-z0-9]{24})-:mangaName([a-z0-9-]+)" component={MangaDetails} />
             <Route path="/mangalist" component={MangaList} />
-            <Route path="/search" component={SearchResult} />
             <Route path="/savedmanga" component={SavedManga} />
+            <Route path="/search" component={SearchResult} />
             <Route component={Default} />
           </Switch>
         </Main>

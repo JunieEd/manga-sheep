@@ -4,29 +4,43 @@ import styled from "styled-components";
 import "./style.css";
 
 const Wrapper = styled.div`
+  display: flex;
   border-radius: calc(7px + 0.1vw);
   min-width: 50px;
   padding: calc(5px + 0.2vw);
   position: relative;
   margin-bottom: calc(10px + 0.5vw);
 `;
+const ImageContainerx = styled.div`
+  width: 100px;
+  float: left;
+`;
 
 const ImageContainer = styled.div`
   display: block;
   position: relative;
   width: 100%;
-  height: 0;
+  height: 100%;
   padding-bottom: 150%;
+`;
+const MangaInfoContainer = styled.div`
+  flex: 1;
+  padding: 0 calc(10px + 0.5vw);
 `;
 
 const TitleWrapper = styled.div`
   margin-top: 5px;
-  height: calc(7px + 0.5vw);
-  width: 75%;
+  height: calc(7px + 0.3vw);
+`;
+
+const Status = styled.div`
+  margin-top: 5px;
+  height: calc(7px + 0.3vw);
+  width: 50%;
 `;
 
 const PlaceHolder = styled.div`
-  border-radius: calc(5px + 0.1vw) calc(5px + 0.1vw) 0 0;
+  border-radius: calc(5px + 0.1vw) calc(5px + 0.1vw);
   position: absolute;
   top: 0;
   left: 0;
@@ -38,16 +52,16 @@ const PlaceHolder = styled.div`
   object-fit: cover;
 `;
 
-const PHMangaCard = ({ className }) => {
+const PHPageImage = ({ className }) => {
   return (
     <Wrapper className={className + " placeload"}>
-      <ImageContainer>
-        <PlaceHolder className="loads" />
-      </ImageContainer>
-
-      <TitleWrapper className="loads"></TitleWrapper>
+      <ImageContainerx>
+        <ImageContainer>
+          <PlaceHolder className="loads-darker" />
+        </ImageContainer>
+      </ImageContainerx>
     </Wrapper>
   );
 };
 
-export default PHMangaCard;
+export default PHPageImage;

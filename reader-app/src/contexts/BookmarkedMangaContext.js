@@ -1,11 +1,10 @@
-import * as R from "ramda";
 import React, { createContext } from "react";
-
+import * as R from "ramda";
 import useLocalStorage from "#src/hooks/useLocalStorage";
 
-const BookmarkedContext = createContext();
+const BookmarkedMangaContext = createContext();
 
-export default BookmarkedContext;
+export default BookmarkedMangaContext;
 
 export const Provider = ({ children }) => {
   const [bookmarkedManga, setBookmarkedManga] = useLocalStorage("bookmarkedManga", []);
@@ -21,7 +20,7 @@ export const Provider = ({ children }) => {
   };
 
   return (
-    <BookmarkedContext.Provider
+    <BookmarkedMangaContext.Provider
       value={{
         bookmarkManga,
         bookmarkedManga,
@@ -30,6 +29,6 @@ export const Provider = ({ children }) => {
       }}
     >
       {children}
-    </BookmarkedContext.Provider>
+    </BookmarkedMangaContext.Provider>
   );
 };

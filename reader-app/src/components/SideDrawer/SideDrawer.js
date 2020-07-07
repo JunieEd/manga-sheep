@@ -93,7 +93,7 @@ const SideDrawer = (props) => {
         </SideDrawerMenuListItem>
         <hr />
         <SideDrawerMenuListItem>
-          <Link to="/savedManga" className="noSelect" onClick={props.menuDrawerHide}>
+          <Link to="/savedmanga" className="noSelect" onClick={props.menuDrawerHide}>
             Saved Manga
           </Link>
         </SideDrawerMenuListItem>

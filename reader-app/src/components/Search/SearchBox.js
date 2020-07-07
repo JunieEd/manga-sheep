@@ -31,7 +31,14 @@ const SearchInput = styled.input.attrs({ placeholder: "Search Manga" })`
 
 const IconWrapper = styled.div``;
 
-const Autocomplete = ({ autoCompValue, setAutoCompValue, handleChange, xButtonClickHandler, forDesktop, mangas }) => {
+const Autocomplete = ({
+  autoCompValue,
+  setAutoCompValue,
+  handleChange,
+  backButtonClickHandler,
+  forDesktop,
+  mangas,
+}) => {
   let searchBoxStyle = [];
   let iconWrapperStyle = [];
   const dispatch = useDispatch();
@@ -54,12 +61,10 @@ const Autocomplete = ({ autoCompValue, setAutoCompValue, handleChange, xButtonCl
 
   const handleFocus = () => {
     dispatch(searchOptionShow());
-    console.log("focus", searchOption);
   };
 
   const handleClickOutside = () => {
-    dispatch(searchOptionHide());
-    console.log("clicked");
+    if (forDesktop) dispatch(searchOptionHide());
   };
 
   return (
@@ -80,7 +85,7 @@ const Autocomplete = ({ autoCompValue, setAutoCompValue, handleChange, xButtonCl
         )}
         {!forDesktop && (
           <IconWrapper className="search-icon-wrapper c-width matted">
-            <button className="search-button noSelect" onClick={xButtonClickHandler}>
+            <button className="search-button noSelect" onClick={backButtonClickHandler}>
               <BackArrowIcon height="18" />
             </button>
           </IconWrapper>
@@ -88,7 +93,13 @@ const Autocomplete = ({ autoCompValue, setAutoCompValue, handleChange, xButtonCl
       </SearchBox>
 
       {searchOption.show && autoCompValue != "" && (
-        <Option setAutoCompValue={setAutoCompValue} forDesktop={forDesktop} mangas={mangas} />
+        <Option
+          backButtonClickHandler={backButtonClickHandler}
+          autoCompValue={autoCompValue}
+          setAutoCompValue={setAutoCompValue}
+          forDesktop={forDesktop}
+          mangas={mangas}
+        />
       )}
     </OutsideClickAlerter>
   );

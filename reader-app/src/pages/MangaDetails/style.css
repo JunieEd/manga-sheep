@@ -1,3 +1,11 @@
 .list-filter-selected {
   background-color: red !important;
 }
+
+.chapter-read a {
+  color: var(--global-gray-color);
+}
+
+.chapter-read a:hover {
+  color: var(--global-black-color) !important;
+}

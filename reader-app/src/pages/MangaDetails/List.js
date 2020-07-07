@@ -1,8 +1,9 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { fromUnixTime, differenceInDays, formatDistanceToNow, format } from "date-fns";
 import _ from "lodash";
+import ReadChaptersContext from "#src/contexts/ReadChaptersContext";
 
 import FilterButtons from "./FilterButtons";
 import "./style.css";
@@ -33,7 +34,7 @@ const ListItem = styled.li`
     flex: 1;
 
     :hover {
-      color: var(--global-font-color);
+      color: var(--global-dark-red-color);
     }
   }
 
@@ -69,11 +70,19 @@ const INITIAL_LIMIT = 10;
 const ALL_CHAPTERS = "All Chapters";
 
 const List = ({ chapters, mangaId, mangaName }) => {
+  const { isChapterRead } = useContext(ReadChaptersContext);
   const [mangaLimit, setMangaLimit] = useState(INITIAL_LIMIT);
   const [selectedFilter, setSelectedFilter] = useState(ALL_CHAPTERS);
   const [isAsc, setIsAsc] = useState(false);
-  const [fChapters, setFChapters] = useState(chapters);
+  const [fChapters, setFChapters] = useState([]);
   const [isShowMore, setIsShowMore] = useState(true);
+
+  useEffect(() => {
+    //workaround to setting up Props Value into State - which is bad
+    if (chapters !== fChapters) {
+      setFChapters(chapters);
+    }
+  }, [chapters]);
 
   const showMore = (x) => {
     let limit = x ? fChapters.length : INITIAL_LIMIT;
@@ -98,8 +107,11 @@ const List = ({ chapters, mangaId, mangaName }) => {
       <ListWrapper>
         {chapters &&
           fChapters.slice(0, mangaLimit).map((chapter, index) => (
-            <ListItem key={index}>
-              <Link to={`/${mangaId}-${mangaName}/${chapter.id}`}>
+            <ListItem
+              key={index}
+              className={isChapterRead({ mangaId: mangaId, chapterId: chapter.id }) ? "chapter-read" : ""}
+            >
+              <Link to={`/${mangaId}-${mangaName}/${chapter.id}-chapter-${chapter.number.replace(".", "-")}`}>
                 {"Chapter " +
                   chapter.number +
                   (chapter.title && chapter.title != chapter.number ? " : " + chapter.title : "")}

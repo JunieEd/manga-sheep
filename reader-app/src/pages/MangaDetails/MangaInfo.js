@@ -9,7 +9,8 @@ import { Title } from "#src/components/Column";
 import Image from "#src/components/Image";
 import ReadMore from "./ReadMore";
 import List from "./List";
-import { ButtonBookmark } from "#src/components/Button";
+import { ButtonBookmarkWithBG as BookmarkedButton } from "#src/components/Button";
+import { Breadcrumb_Custom as Breadcrumb } from "#src/components/Breadcrumb";
 
 const query = gql`
   query($mangaId: ID!) {
@@ -102,11 +103,7 @@ const MangaTitle = styled(Title)`
   font-family: "Roboto" !important;
 `;
 
-const ButtonBookmarkStyled = styled(ButtonBookmark)`
-  position: absolute;
-  top: 5px;
-  right: 5px;
-  font-size: 0.5rem;
+const ButtonBookmarkStyled = styled(BookmarkedButton)`
   z-index: 2;
 `;
 
@@ -125,15 +122,23 @@ const ImageSubContainer = styled.div`
   position: relative;
 `;
 
-const MangaInfo = ({ mangaId, mangaName }) => {
+const MangaInfo = ({ mangaId, mangaName, location }) => {
   const { data, loading } = useQuery(query, {
     variables: { mangaId },
   });
+
+  const breadcrumbItems = !loading &&
+    data && [
+      { to: "/", label: "Home" },
+      { to: "/mangalist", label: "Manga List" },
+      { to: `${location.pathname}`, label: `${data.manga.title}` },
+    ];
 
   return (
     !loading &&
     data && (
       <>
+        <Breadcrumb items={breadcrumbItems} />
         <MangaTitle text={data.manga.title} route="" />
         <BasicInfoWrapper>
           <ImageContainer>

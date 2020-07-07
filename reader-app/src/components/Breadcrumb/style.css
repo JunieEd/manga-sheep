@@ -1,0 +1,39 @@
+.breadcrumb-wrapper {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+ol {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    font-size: calc(0.8rem + 0.1vw);
+}
+
+.breadcrumb-separator {
+    color: var(--global-black-color);
+    margin: auto 6px;
+}
+
+.breadcrumb-collapser {
+    display: flex;
+    align-items: center;
+}
+
+.breadcrumb-collapser svg {
+    cursor: pointer;
+    transition: all 0.2s ease-out;
+    color: #000;
+    width: 25px;
+    height: 25px;
+}
+
+.breadcrumb-collapser svg:hover,
+.breadcrumb-collapser svg:focus {
+    color: #999;
+    transform: scale(1.15);
+}
+
+.breadcrumb-collapser svg:active {
+    color: #333;
+}

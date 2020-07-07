@@ -1,3 +1,7 @@
+:root {
+    --gray: rgb(161, 161, 161);
+}
+
 .loads {
     -webkit-animation-duration: 1s;
     animation-duration: 1s;
@@ -14,6 +18,29 @@
     background: -webkit-gradient(linear, left top, right top, color-stop(8%, #eee), color-stop(18%, #ddd), color-stop(33%, #eee));
     background: -webkit-linear-gradient(left, #eee 8%, #ddd 18%, #eee 33%);
     background: linear-gradient(to right, #eee 8%, #ddd 18%, #eee 33%);
+    -webkit-background-size: 800px 104px;
+    background-size: 1200px 104px;
+    position: relative;
+}
+
+
+
+.loads-darker {
+    -webkit-animation-duration: 1s;
+    animation-duration: 1s;
+    -webkit-animation-fill-mode: forwards;
+    animation-fill-mode: forwards;
+    -webkit-animation-iteration-count: infinite;
+    animation-iteration-count: infinite;
+    -webkit-animation-name: placeload;
+    animation-name: placeload;
+    -webkit-animation-timing-function: linear;
+    animation-timing-function: linear;
+    background: #f6f7f8;
+    background: #eee;
+    background: -webkit-gradient(linear, left top, right top, color-stop(8%, #eee), color-stop(18%, var(--gray)), color-stop(33%, #eee));
+    background: -webkit-linear-gradient(left, #eee 8%, var(--gray) 18%, #eee 33%);
+    background: linear-gradient(to right, #eee 8%, var(--gray) 18%, #eee 33%);
     -webkit-background-size: 800px 104px;
     background-size: 1200px 104px;
     position: relative;

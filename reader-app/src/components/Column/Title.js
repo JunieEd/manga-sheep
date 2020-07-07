@@ -27,7 +27,7 @@ const GroupTitle = styled.div`
 `;
 
 const Title = ({ className, text, route }) => (
-  <GroupTitle className={className}>
+  <GroupTitle className={"not-selectable " + className}>
     <span className={className}>{text}</span>
     {route && route != "" && <Link to={route}>View All</Link>}
   </GroupTitle>

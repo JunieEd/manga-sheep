@@ -10,7 +10,7 @@ const ImageContainer = styled.div`
 `;
 
 const ImageStyled = styled.img`
-  border-radius: calc(3px + 0.1vw) calc(3px + 0.1vw);
+  border-radius: calc(3px + 0.1vw);
   position: absolute;
   top: 0;
   left: 0;

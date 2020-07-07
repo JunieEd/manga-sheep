@@ -1,6 +1,6 @@
-import React, { useEffect } from "react";
+import React from "react";
 
-import Ads from "#src/components/Ads/Ads";
+import Ads from "#src/components/Ads";
 import AllUpdates from "#src/components/AllUpdates/AllUpdates";
 import PopularMangaUpdates from "#src/components/PopularMangaUpdates";
 import TopManga from "#src/components/TopManga";

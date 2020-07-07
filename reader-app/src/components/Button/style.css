@@ -16,7 +16,8 @@
 }
 
 .button-c:hover {
-    background-color: #b32525;
+    background-color: var(--global-dark-red-color);
+    color: white;
 }
 
 .button-c:keydown {

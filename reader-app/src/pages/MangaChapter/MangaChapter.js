@@ -1,10 +1,14 @@
-import React from "react";
+import React, { useState, useContext, useEffect } from "react";
+import * as R from "ramda";
 import { useQuery } from "@apollo/react-hooks";
 import gql from "graphql-tag";
-import LazyLoad from "react-lazyload";
 import styled from "styled-components";
 
+import ReadChaptersContext from "#src/contexts/ReadChaptersContext";
+
+import { Loader } from "#src/components/Others";
 import Ads from "#src/components/Ads";
+import Page from "./Page";
 import Nav from "./Nav";
 
 import "./style.css";
@@ -59,27 +63,36 @@ const NavStyled = styled(Nav)`
 
 const MangaChapter = ({
   match: {
-    params: { mangaId, mangaName, chapterId },
+    params: { mangaId, mangaName, chapterId, chapterNumber },
   },
+  location,
 }) => {
   const { data, loading } = useQuery(query, {
     variables: { chapterId },
   });
+  const { isChapterRead, addReadChapter } = useContext(ReadChaptersContext);
 
-  if (loading) return <div>Loading</div>;
+  useEffect(() => {
+    if (!isChapterRead({ mangaId: mangaId, chapterId: chapterId })) {
+      addReadChapter(mangaId, chapterId);
+    }
+  });
+
+  if (loading) return <Loader />;
 
   return (
     <>
+      <div className="container">
+        <Ads />
+      </div>
       <Wrapper>
-        <NavStyled mangaId={mangaId} mangaName={mangaName} chapterId={chapterId} />
+        <NavStyled mangaId={mangaId} mangaName={mangaName} chapterId={chapterId} location={location} />
         <ChapterImageWrapper>
           {[...data.chapter.images].reverse().map((image, index) => (
-            <LazyLoad key={index} height={1000} resize={false}>
-              <img referrerPolicy="no-referrer" src={image.url} />
-            </LazyLoad>
+            <Page key={index} src={image.url} index={index} />
           ))}
         </ChapterImageWrapper>
-        <NavStyled mangaId={mangaId} chapterId={chapterId} />
+        <NavStyled mangaId={mangaId} chapterId={chapterId} location={location} />
       </Wrapper>
       <div className="container">
         <Ads />

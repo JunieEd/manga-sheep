@@ -95,7 +95,7 @@ const StarContainer = styled.div`
   cursor: pointer;
 `;
 
-const Option = ({ forDesktop, setAutoCompValue, mangas }) => {
+const Option = ({ forDesktop, autoCompValue, setAutoCompValue, mangas, backButtonClickHandler }) => {
   const dispatch = useDispatch();
   const history = useHistory();
   let hasResult = false;
@@ -110,6 +110,7 @@ const Option = ({ forDesktop, setAutoCompValue, mangas }) => {
     setAutoCompValue(title);
     history.push(`/${id}-${sanitiseTitle(title)}`);
     dispatch(searchOptionHide());
+    backButtonClickHandler();
   };
 
   const optionAllSearchResultClickHandler = (e) => {
@@ -117,6 +118,7 @@ const Option = ({ forDesktop, setAutoCompValue, mangas }) => {
     if (hasResult) history.push(`/search?q=${encodeURI(autoCompValue)}`);
     else history.push(`/mangalist`);
     dispatch(searchOptionHide());
+    backButtonClickHandler();
   };
 
   const optionItems = mangas.map((manga) => (

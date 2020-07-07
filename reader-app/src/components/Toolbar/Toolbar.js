@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, useCallback } from "react";
+import React, { useState, useRef, useCallback } from "react";
 import { useScrollPosition } from "@n8tb1t/use-scroll-position";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
